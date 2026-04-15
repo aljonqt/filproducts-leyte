@@ -49,7 +49,7 @@
         <div class="hero-visual">
             <div class="device-composition">
                 <div class="device-wrapper modem-wrap">
-                    <img src="{{ asset('images/modem.png') }}" alt="Fiber Router" class="floating-img">
+                    <img src="{{ asset('public/images/modem.png') }}" alt="Fiber Router" class="floating-img">
                     <div class="glass-card card-internet">
                         <div class="icon-box"><i class="fas fa-bolt"></i></div>
                         <div>
@@ -59,7 +59,7 @@
                 </div>
 
                 <div class="device-wrapper tv-wrap">
-                    <img src="{{ asset('images/tv.png') }}" alt="HD Cable TV" class="floating-img delay-1">
+                    <img src="{{ asset('public/images/tv.png') }}" alt="HD Cable TV" class="floating-img delay-1">
                     <div class="glass-card card-tv">
                         <div class="icon-box"><i class="fas fa-tv"></i></div>
                         <div>
@@ -280,23 +280,6 @@
         </div>
 
         <div class="news-grid">
-            <article class="news-card feature-card">
-                <div class="image-container">
-                    <img src="{{ asset('images/mondragon.jfif') }}" alt="Mondragon Branch" class="news-image">
-                    <span class="news-tag">New Branch</span>
-                </div>
-                <div class="news-body">
-                    <span class="news-date">April 2026</span>
-                    <h3>New Mondragon Branch Now Open</h3>
-                    <p>Fil Products Eastern Visayas proudly announces the opening of our new branch in Mondragon, Northern Samar to better serve our growing subscribers.</p>
-                    <div class="news-footer">
-                        <span class="highlight-pill">Fast</span>
-                        <span class="highlight-pill">Reliable</span>
-                        <span class="highlight-pill">Local Support</span>
-                    </div>
-                </div>
-            </article>
-
             <article class="news-card promo-card">
                 <div class="news-body">
                     <span class="news-tag promo">Special Promo</span>
@@ -308,7 +291,7 @@
 
             <article class="news-card">
                 <div class="image-container">
-                    <img src="{{ asset('images/customersupport.png') }}" alt="Customer Portal" class="news-image">
+                    <img src="{{ asset('public/images/customersupport.png') }}" alt="Customer Portal" class="news-image">
                 </div>
                 <div class="news-body">
                     <span class="news-tag tech">Digital Service</span>

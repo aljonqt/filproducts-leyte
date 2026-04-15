@@ -96,8 +96,8 @@ public function submitComplaint(Request $request)
         $mail = new PHPMailer(true);
         $this->configureSMTP($mail);
 
-        $mail->setFrom(env('MAIL_USERNAME'), 'Fil Products Samar');
-        $mail->addAddress('info.cyg@filproducts.ph');
+        $mail->setFrom(env('MAIL_USERNAME'), 'Fil Products Butuan');
+        $mail->addAddress('it.butuan@filproducts.ph');
         $mail->addReplyTo($email, $name);
 
         $mail->isHTML(true);
@@ -145,7 +145,7 @@ public function submitComplaint(Request $request)
         $mailCustomer = new PHPMailer(true);
         $this->configureSMTP($mailCustomer);
 
-        $mailCustomer->setFrom(env('MAIL_USERNAME'), 'Fil Products Samar');
+        $mailCustomer->setFrom(env('MAIL_USERNAME'), 'Fil Products Butuan');
         $mailCustomer->addAddress($email);
 
         $mailCustomer->isHTML(true);
@@ -158,7 +158,7 @@ public function submitComplaint(Request $request)
 
             <p>Dear <strong>{$name}</strong>,</p>
 
-            <p>Thank you for contacting <strong>Fil Products Samar</strong>.</p>
+            <p>Thank you for contacting <strong>Fil Products Butuan</strong>.</p>
 
             <p>We have successfully received your complaint. Our team will review it and get back to you as soon as possible.</p>
 
@@ -297,7 +297,7 @@ $pdf->Cell(216, 7, $branchData['name'], 0, 1, 'C');
 $pdf->SetFont('helvetica', '', 10);
 $pdf->Cell(0, 5, strtoupper($branchData['address']), 0, 1, 'C');
 $pdf->Cell(0, 5, 'CEL. NOS.: ' . $branchData['contact'], 0, 1, 'C');
-$pdf->Cell(0,5,'Email: info.cyg@filproducts.ph | Website: www.filproducts-cyg.com',0,1,'C');
+$pdf->Cell(0,5,'Email: it.butuan@filproducts.ph | Website: www.butuan.filproducts-cyg.com',0,1,'C');
 
 $pdf->Ln(15);
 
@@ -494,7 +494,7 @@ $declaration = "
     plans, products and/or services chosen by me in this application form, as well as the inclusions and special features of such
     plans, products and/or services and that any enrolment I have indicated herein have been knowingly made by me.
 
-    3. I hereby authorize FIL PRODUCTS SERVICE TELEVISION OF CALBAYOG, INC. (hereinafter you) or any person or
+    3. I hereby authorize FIL PRODUCTS SERVICE TELEVISION OF BUTUAN, INC. (hereinafter you) or any person or
     entity authorized by you, to verify any information about me and/or documents available from whatever source including but
     not limited to (i) your subsidiaries, affiliates, and/or their service providers: or (ii) banks, credit card companies, and other
     lending and/or financial institution, and I hereby authorize the holder, controller and processor of such information and/or
@@ -641,7 +641,7 @@ file_put_contents($pdfPath,$pdfContent);
    BRANCH EMAIL MAP
 ========================== */
 $branchEmails = [
-    'butuan' => 'info.cyg@filproducts.ph',
+    'butuan' => 'it.butuan@filproducts.ph',
 ];
 
 /* =========================
@@ -659,7 +659,7 @@ $subscription = htmlspecialchars($subscription ?? '');
 /* =========================
    DETERMINE RECIPIENT
 ========================== */
-$branchRecipient = $branchEmails[$selectedBranch] ?? 'info.cyg@filproducts.ph';
+$branchRecipient = $branchEmails[$selectedBranch] ?? 'it.butuan@filproducts.ph';
 
 /* =========================
    SEND EMAIL
@@ -699,7 +699,7 @@ if (!empty($email)) {
 $mail->addAddress($branchRecipient);
 
 /* ✅ ALWAYS SEND TO ADMIN */
-$mail->addCC('info.cyg@filproducts.ph');
+$mail->addCC('it.butuan@filproducts.ph');
 
 /* =========================
    CONTENT
@@ -751,7 +751,7 @@ $mail->Body = "
 ========================== */
 
 // ONLY attach for admin email
-$mail->addAddress('info.cyg@filproducts.ph'); // admin first
+$mail->addAddress('it.butuan@filproducts.ph');
 
 // Attach PDF (optional: keep or remove if large)
 if (!empty($pdfContent) && !empty($fileName)) {
@@ -786,7 +786,7 @@ $mail->send();
 $mailCustomer = new PHPMailer(true);
 $this->configureSMTP($mailCustomer);
 
-$mailCustomer->setFrom(env('MAIL_USERNAME'), 'Fil Products Samar');
+$mailCustomer->setFrom(env('MAIL_USERNAME'), 'Fil Products Butuan');
 $mailCustomer->addAddress($email);
 
 $mailCustomer->isHTML(true);
@@ -893,7 +893,7 @@ $pdf->Cell(216, 7, $branchData['name'], 0, 1, 'C');
 $pdf->SetFont('helvetica', '', 10);
 $pdf->Cell(0, 5, strtoupper($branchData['address']), 0, 1, 'C');
 $pdf->Cell(0, 5, 'CEL. NOS.: ' . $branchData['contact'], 0, 1, 'C');
-$pdf->Cell(0,5,'Email: info.cyg@filproducts.ph | Website: www.filproducts-cyg.com',0,1,'C');
+$pdf->Cell(0,5,'Email: it.butuan@filproducts.ph | Website: www.butuan.filproducts-cyg.com',0,1,'C');
 $pdf->Ln(15);
 
 
@@ -1093,7 +1093,7 @@ $declaration = "
     plans, products and/or services chosen by me in this application form, as well as the inclusions and special features of such
     plans, products and/or services and that any enrolment I have indicated herein have been knowingly made by me.
 
-    3. I hereby authorize FIL PRODUCTS SERVICE TELEVISION OF CALBAYOG, INC. (hereinafter you) or any person or
+    3. I hereby authorize FIL PRODUCTS SERVICE TELEVISION OF BUTUAN, INC. (hereinafter you) or any person or
     entity authorized by you, to verify any information about me and/or documents available from whatever source including but
     not limited to (i) your subsidiaries, affiliates, and/or their service providers: or (ii) banks, credit card companies, and other
     lending and/or financial institution, and I hereby authorize the holder, controller and processor of such information and/or
@@ -1211,7 +1211,7 @@ file_put_contents($pdfPath,$pdfContent);
    FIXED BRANCH (BUTUAN ONLY)
 ========================== */
 $branch = 'Butuan';
-$branchRecipient = 'info.cyg@filproducts.ph';
+$branchRecipient = 'it.butuan@filproducts.ph';
 
 /* =========================
    SANITIZE INPUT
@@ -1258,7 +1258,7 @@ if (!empty($email)) {
 
 /* BUTUAN + ADMIN */
 $mail->addAddress($branchRecipient);
-$mail->addCC($branchRecipient); // optional duplicate visibility
+$mail->addCC($branchRecipient);
 
 /* =========================
    CONTENT (MATCH INQUIRY)
@@ -1497,7 +1497,7 @@ $pdf->Cell(216, 7, $branchData['name'], 0, 1, 'C');
 $pdf->SetFont('helvetica','',10);
 $pdf->Cell(0, 5, strtoupper($branchData['address']), 0, 1, 'C');
 $pdf->Cell(0, 5, 'CEL. NOS.: ' . $branchData['contact'], 0, 1, 'C');
-$pdf->Cell(0,5,'Email: info.cyg@filproducts.ph | Website: www.filproducts-cyg.com',0,1,'C');
+$pdf->Cell(0,5,'Email: it.butuan@filproducts.ph | Website: www.butuan.filproducts-cyg.com',0,1,'C');
 $pdf->Ln(4);
 
 /* ================= APPLICATION FORM ================= */
@@ -1689,7 +1689,7 @@ $declaration = "
     plans, products and/or services chosen by me in this application form, as well as the inclusions and special features of such
     plans, products and/or services and that any enrolment I have indicated herein have been knowingly made by me.
 
-    3. I hereby authorize FIL PRODUCTS SERVICE TELEVISION OF CALBAYOG, INC. (hereinafter you) or any person or
+    3. I hereby authorize FIL PRODUCTS SERVICE TELEVISION OF BUTUAN, INC. (hereinafter you) or any person or
     entity authorized by you, to verify any information about me and/or documents available from whatever source including but
     not limited to (i) your subsidiaries, affiliates, and/or their service providers: or (ii) banks, credit card companies, and other
     lending and/or financial institution, and I hereby authorize the holder, controller and processor of such information and/or
@@ -1735,8 +1735,8 @@ $pdf->MultiCell(0, 5, $declaration);
 $pdf->Ln(10);
 
 /* CENTER POSITION */
-$pageWidth = 216; // Long bond width in mm
-$centerX = ($pageWidth / 2) - 30; // Adjust for signature width
+$pageWidth = 216;
+$centerX = ($pageWidth / 2) - 30;
 
 /* ================= INSERT SAVED SIGNATURE ================= */
 
@@ -1878,7 +1878,7 @@ file_put_contents($pdfPath,$pdfContent);
    FIXED BRANCH (BUTUAN ONLY)
 ========================== */
 $branch = 'Butuan';
-$branchRecipient = 'info.cyg@filproducts.ph';
+$branchRecipient = 'it.butuan@filproducts.ph';
 
 /* =========================
    DATA
@@ -2172,7 +2172,7 @@ $pdf->Cell(216, 7, $branchData['name'], 0, 1, 'C');
 $pdf->SetFont('helvetica','',10);
 $pdf->Cell(0, 5, strtoupper($branchData['address']), 0, 1, 'C');
 $pdf->Cell(0, 5, 'CEL. NOS.: ' . $branchData['contact'], 0, 1, 'C');
-$pdf->Cell(0,5,'Email: info.cyg@filproducts.ph | Website: www.filproducts-cyg.com',0,1,'C');
+$pdf->Cell(0,5,'Email: it.butuan@filproducts.ph | Website: www.butuan.filproducts-cyg.com',0,1,'C');
 $pdf->Ln(4);
 
 /* ================= APPLICATION FORM ================= */
@@ -2297,7 +2297,7 @@ $declaration = "
     plans, products and/or services chosen by me in this application form, as well as the inclusions and special features of such
     plans, products and/or services and that any enrolment I have indicated herein have been knowingly made by me.
 
-    3. I hereby authorize FIL PRODUCTS SERVICE TELEVISION OF CALBAYOG, INC. (hereinafter you) or any person or
+    3. I hereby authorize FIL PRODUCTS SERVICE TELEVISION OF BUTUAN, INC. (hereinafter you) or any person or
     entity authorized by you, to verify any information about me and/or documents available from whatever source including but
     not limited to (i) your subsidiaries, affiliates, and/or their service providers: or (ii) banks, credit card companies, and other
     lending and/or financial institution, and I hereby authorize the holder, controller and processor of such information and/or

@@ -625,33 +625,36 @@ file_put_contents($pdfPath,$pdfContent);
 /* =========================
    BRANCH EMAIL MAP
 ========================== */
-
 $branchEmails = [
-    'butuan' => 'info.cyg@filproducts.ph'
+    'butuan' => 'info.cyg@filproducts.ph',
 ];
 
-/* ✅ USE REQUEST ONLY */
+/* =========================
+   SANITIZE INPUT
+========================== */
 $selectedBranch = strtolower($request->branch ?? '');
-$branch = $request->branch ?? 'N/A';
+$branch = htmlspecialchars($request->branch ?? 'N/A');
+
+$companyName = htmlspecialchars($companyName ?? '');
+$firstName = htmlspecialchars($firstName ?? '');
+$lastName = htmlspecialchars($lastName ?? '');
+$email = htmlspecialchars($email ?? '');
+$subscription = htmlspecialchars($subscription ?? '');
+
+/* =========================
+   DETERMINE RECIPIENT
+========================== */
+$branchRecipient = $branchEmails[$selectedBranch] ?? 'info.cyg@filproducts.ph';
 
 /* =========================
    SEND EMAIL
 ========================== */
-
 $mail = new PHPMailer(true);
 
-$mail->isSMTP();
+/* ✅ USE HELPER FUNCTION */
+$this->configureSMTP($mail);
 
-/* SMTP */
-$mail->Host = 'mail.filproducts-cyg.com';
-$mail->SMTPAuth = true;
-$mail->Username = 'noreply@filproducts-cyg.com';
-$mail->Password = '8kKAahOE*.E,7uJZ';
-
-$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-$mail->Port = 465;
-
-/* SSL FIX */
+/* OPTIONAL SSL FIX (keep if needed) */
 $mail->SMTPOptions = [
     'ssl' => [
         'verify_peer' => false,
@@ -661,80 +664,93 @@ $mail->SMTPOptions = [
 ];
 
 /* FROM */
-$mail->setFrom('noreply@filproducts-cyg.com', 'Fil Products Samar');
+$mail->setFrom(env('MAIL_USERNAME'), 'Fil Products Samar');
 
 /* HEADERS */
-$mail->Sender = 'noreply@filproducts-cyg.com';
+$mail->Sender = env('MAIL_USERNAME');
 $mail->addCustomHeader('X-Mailer', 'PHP/' . phpversion());
 
-/* ============================
+/* =========================
    RECIPIENTS
-============================ */
-
-$customerEmail = $email ?? null;
+========================== */
 
 /* ✅ SEND TO CUSTOMER */
-if ($customerEmail) {
-    $mail->addAddress($customerEmail);
-    $mail->addReplyTo($customerEmail, $companyName);
+if (!empty($email)) {
+    $mail->addAddress($email);
+    $mail->addReplyTo($email, $companyName);
 }
 
 /* ✅ SEND TO BRANCH */
-if (isset($branchEmails[$selectedBranch])) {
-    $mail->addAddress($branchEmails['butuan']);
-} else {
-    $mail->addAddress('info.cyg@filproducts.ph');
-}
+$mail->addAddress($branchRecipient);
 
-/* ✅ ALWAYS SEND TO ADMIN (OPTIONAL BUT GOOD) */
+/* ✅ ALWAYS SEND TO ADMIN */
 $mail->addCC('info.cyg@filproducts.ph');
 
 /* =========================
    CONTENT
 ========================== */
-
 $mail->isHTML(true);
 $mail->CharSet = 'UTF-8';
 
-$mail->Subject = "Filbiz Application - " . $companyName;
+$mail->Subject = "Filbiz Application - {$companyName}";
 
 $mail->Body = "
-<h3 style='margin-bottom:10px;'>Filbiz Application</h3>
+<div style='font-family: Arial, sans-serif; font-size:14px; color:#333;'>
+    <h2 style='color:#0275d8;'>Filbiz Application</h2>
+    <hr>
 
-<p><b>Company:</b> {$companyName}</p>
-<p><b>Applicant:</b> {$firstName} {$lastName}</p>
-<p><b>Email:</b> {$email}</p>
-<p><b>Branch:</b> {$branch}</p>
-<p><b>Plan:</b> {$subscription}</p>
+    <table style='width:100%; border-collapse: collapse;'>
+        <tr>
+            <td><strong>Company:</strong></td>
+            <td>{$companyName}</td>
+        </tr>
+        <tr>
+            <td><strong>Applicant:</strong></td>
+            <td>{$firstName} {$lastName}</td>
+        </tr>
+        <tr>
+            <td><strong>Email:</strong></td>
+            <td>{$email}</td>
+        </tr>
+        <tr>
+            <td><strong>Branch:</strong></td>
+            <td>{$branch}</td>
+        </tr>
+        <tr>
+            <td><strong>Plan:</strong></td>
+            <td>{$subscription}</td>
+        </tr>
+    </table>
 
-<hr>
-
-<p style='font-size:12px;color:#555;'>
-This application was submitted via Fil Products System.
-</p>
+    <br>
+    <p style='font-size:12px;color:#555;'>
+        This application was submitted via Fil Products System.
+    </p>
+</div>
 ";
 
 /* =========================
-   ATTACHMENTS
+   ATTACHMENT (SAFE CHECK)
 ========================== */
-
-$mail->addStringAttachment($pdfContent, $fileName);
+if (!empty($pdfContent) && !empty($fileName)) {
+    $mail->addStringAttachment($pdfContent, $fileName);
+}
 
 /* =========================
    SEND
 ========================== */
 $mail->send();
 
-
-
-    return redirect()
-        ->route('filbiz.inquiry')
-        ->with('success','
-    ✅Your Filbiz Application has been successfully submitted.
-    📧 A copy of your application form has been sent to your email.
-    Our Fil Products team will review your application and contact you shortly for the next steps.
+/* =========================
+   RESPONSE
+========================== */
+return redirect()
+    ->route('filbiz.inquiry')
+    ->with('success', '
+    ✅ Your Filbiz Application has been successfully submitted.<br>
+    📧 A copy has been sent to your email.<br>
+    Our team will contact you shortly.
     ');
-
 }
 
 

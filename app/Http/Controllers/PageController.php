@@ -747,6 +747,34 @@ $mail->Body = "
 </div>
 ";
 
+$businessPermitURL = $businessPermitPath 
+    ? asset('storage/attachments/' . basename($businessPermitPath)) 
+    : null;
+
+$dtiSecURL = $dtiSecPath 
+    ? asset('storage/attachments/' . basename($dtiSecPath)) 
+    : null;
+
+$validIdURL = $validIdPath 
+    ? asset('storage/attachments/' . basename($validIdPath)) 
+    : null;
+
+$mail->Body .= "<br><br><h4>Uploaded Documents</h4><ul>";
+
+if ($businessPermitURL) {
+    $mail->Body .= "<li><a href='{$businessPermitURL}'>Business Permit</a></li>";
+}
+
+if ($dtiSecURL) {
+    $mail->Body .= "<li><a href='{$dtiSecURL}'>DTI / SEC</a></li>";
+}
+
+if ($validIdURL) {
+    $mail->Body .= "<li><a href='{$validIdURL}'>Valid ID</a></li>";
+}
+
+$mail->Body .= "</ul>";
+
 /* =========================
    ATTACHMENTS (ADMIN ONLY)
 ========================== */
@@ -761,15 +789,12 @@ if (!empty($pdfContent) && !empty($fileName)) {
 
 // Attach uploaded files (ONLY if small enough)
 if ($businessPermitPath && file_exists($businessPermitPath)) {
-    $mail->addAttachment($businessPermitPath);
 }
 
 if ($dtiSecPath && file_exists($dtiSecPath)) {
-    $mail->addAttachment($dtiSecPath);
 }
 
 if ($validIdPath && file_exists($validIdPath)) {
-    $mail->addAttachment($validIdPath);
 }
 
 

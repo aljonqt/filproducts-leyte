@@ -748,25 +748,25 @@ $mail->Body = "
 ";
 
 /* =========================
-   ATTACHMENT (SAFE CHECK)
+   ATTACHMENTS
 ========================== */
-$attachments = [
-    'business_permit' => 'Business Permit',
-    'dti_sec' => 'DTI-SEC',
-    'valid_id' => 'Valid ID',
-];
 
-foreach ($attachments as $field => $label) {
-    if ($request->hasFile($field)) {
-        $file = $request->file($field);
+// Attach generated PDF
+if (!empty($pdfContent) && !empty($fileName)) {
+    $mail->addStringAttachment($pdfContent, $fileName);
+}
 
-        if ($file->isValid()) {
-            $mail->addAttachment(
-                $file->getRealPath(),
-                $label . ' - ' . $file->getClientOriginalName()
-            );
-        }
-    }
+// Attach saved uploaded files
+if ($businessPermitPath && file_exists($businessPermitPath)) {
+    $mail->addAttachment($businessPermitPath, 'Business Permit');
+}
+
+if ($dtiSecPath && file_exists($dtiSecPath)) {
+    $mail->addAttachment($dtiSecPath, 'DTI-SEC');
+}
+
+if ($validIdPath && file_exists($validIdPath)) {
+    $mail->addAttachment($validIdPath, 'Valid ID');
 }
 
 /* =========================

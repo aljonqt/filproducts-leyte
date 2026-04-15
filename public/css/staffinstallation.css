@@ -1,0 +1,182 @@
+
+.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #003366;
+}
+
+.table-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #003366;
+    color: white;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #eee;
+}
+
+tr:hover {
+    background: #f9f9f9;
+}
+
+/* STATUS */
+.badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: white;
+}
+
+.pending { background: orange; }
+.processing { background: #007bff; }
+.installed { background: green; }
+
+/* FORM */
+.action-form {
+    display: flex;
+    gap: 8px;
+}
+
+select {
+    padding: 6px;
+    border-radius: 6px;
+}
+
+.btn-update {
+    background: #003366;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.btn-download {
+    background: #28a745;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 12px;
+    display: inline-block;
+}
+
+.btn-download:hover {
+    background: #218838;
+}
+.page-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #003366;
+}
+
+/* CARD */
+.table-card {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+}
+
+/* FILTER BAR */
+.top-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* INPUTS */
+input[type="text"], select {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 13px;
+}
+
+/* BUTTONS */
+.btn {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.btn-primary {
+    background: #003366;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #002244;
+}
+
+.btn-download {
+    background: #28a745;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+/* TABLE */
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+th {
+    background: #003366;
+    color: white;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+tr:hover {
+    background: #f9fbfd;
+}
+
+/* STATUS BADGES */
+.badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    color: white;
+}
+
+.pending { background: orange; }
+.processing { background: #007bff; }
+.assigned { background: purple; }
+.fullnap { background: #ff6600; }
+.installed { background: green; }
+.cancelled { background: red; }
+
+/* FORM */
+.status-form {
+    display: flex;
+    gap: 5px;
+}

@@ -890,6 +890,27 @@ document.querySelectorAll('.file-input').forEach(input => {
     });
 
 });
+
+// ================= TOTAL SIZE VALIDATION =================
+const MAX_TOTAL = 6 * 1024 * 1024; // 6MB total
+
+function checkTotalSize() {
+
+    let total = 0;
+
+    document.querySelectorAll('.file-input').forEach(input => {
+        if (input.files[0]) {
+            total += input.files[0].size;
+        }
+    });
+
+    if (total > MAX_TOTAL) {
+        alert("❌ Total file size must not exceed 6MB.");
+        return false;
+    }
+
+    return true;
+}
 </script>
 
 @include('layouts.footer') 

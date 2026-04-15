@@ -679,7 +679,7 @@ $mail->SMTPOptions = [
 ];
 
 /* FROM */
-$mail->setFrom(env('MAIL_USERNAME'), 'Fil Products Samar');
+$mail->setFrom(env('MAIL_USERNAME'), 'Fil Products Butuan');
 
 /* HEADERS */
 $mail->Sender = env('MAIL_USERNAME');
@@ -1204,40 +1204,27 @@ file_put_contents($pdfPath,$pdfContent);
 
 
 /* =========================
-   BRANCH EMAIL MAP
+   FIXED BRANCH (BUTUAN ONLY)
 ========================== */
-
-$branchEmails = [
-    'calbayog'   => 'info.cyg@filproducts.ph',
-    'allen'      => 'filproductsallen2022@gmail.com',
-    'mondragon'  => 'mondragon.csr013026@gmail.com',
-    'sanjorge'   => 'filproducts.sanjorge@gmail.com',
-    'catarman'   => 'csrfilproductscatarman@gmail.com',
-    'catbalogan' => 'filproducts.catbalogancsr@gmail.com',
-    'tacloban'   => 'filproductsleyte@gmail.com',
-    'palo'   => 'filproductsleyte@gmail.com',
-];
-
-/* ✅ USE REQUEST (NOT $_POST) */
-$selectedBranch = strtolower($request->branch ?? '');
-$branch = $request->branch ?? 'N/A';
+$branch = 'Butuan';
+$branchRecipient = 'info.cyg@filproducts.ph';
 
 /* =========================
-   SEND EMAIL
+   SANITIZE INPUT
 ========================== */
+$companyName = htmlspecialchars($companyName ?? '');
+$firstName   = htmlspecialchars($firstName ?? '');
+$lastName    = htmlspecialchars($lastName ?? '');
+$email       = htmlspecialchars($email ?? '');
+$subscription= htmlspecialchars($subscription ?? '');
 
+/* =========================
+   SEND EMAIL (MAIN)
+========================== */
 $mail = new PHPMailer(true);
 
-$mail->isSMTP();
-
-/* SMTP */
-$mail->Host = 'mail.filproducts-cyg.com';
-$mail->SMTPAuth = true;
-$mail->Username = 'noreply@filproducts-cyg.com';
-$mail->Password = '8kKAahOE*.E,7uJZ';
-
-$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-$mail->Port = 465;
+/* ✅ USE HELPER */
+$this->configureSMTP($mail);
 
 /* SSL FIX */
 $mail->SMTPOptions = [
@@ -1249,84 +1236,116 @@ $mail->SMTPOptions = [
 ];
 
 /* FROM */
-$mail->setFrom('noreply@filproducts-cyg.com', 'Fil Products Samar');
+$mail->setFrom(env('MAIL_USERNAME'), 'Fil Products Butuan');
 
 /* HEADERS */
-$mail->Sender = 'noreply@filproducts-cyg.com';
+$mail->Sender = env('MAIL_USERNAME');
 $mail->addCustomHeader('X-Mailer', 'PHP/' . phpversion());
 
-/* ============================
-   RECIPIENTS
-============================ */
-
-$customerEmail = $email ?? null;
-
-/* ✅ SEND TO CUSTOMER */
-if ($customerEmail) {
-    $mail->addAddress($customerEmail);
-    $mail->addReplyTo($customerEmail, $companyName);
-}
-
-/* ✅ SEND TO SELECTED BRANCH */
-if (isset($branchEmails[$selectedBranch])) {
-    $mail->addAddress($branchEmails['butuan']);
-} else {
-    $mail->addAddress('info.cyg@filproducts.ph');
-}
-
-/* ✅ SEND COPY TO ADMIN */
-$mail->addCC('info.cyg@filproducts.ph');
-
 /* =========================
-   CONTENT
+   RECIPIENTS
 ========================== */
 
+/* CUSTOMER */
+if (!empty($email)) {
+    $mail->addAddress($email);
+    $mail->addReplyTo($email, $companyName);
+}
+
+/* BUTUAN + ADMIN */
+$mail->addAddress($branchRecipient);
+$mail->addCC($branchRecipient); // optional duplicate visibility
+
+/* =========================
+   CONTENT (MATCH INQUIRY)
+========================== */
 $mail->isHTML(true);
 $mail->CharSet = 'UTF-8';
 
-$mail->Subject = "Filbiz Upgrade - " . $companyName;
+$mail->Subject = "Filbiz Upgrade - {$companyName}";
 
 $mail->Body = "
-<h3 style='margin-bottom:10px;'>Filbiz Upgrade Request</h3>
+<div style='font-family: Arial, sans-serif; font-size:14px; color:#333;'>
+    <h2 style='color:#5cb85c;'>Filbiz Upgrade Request</h2>
+    <hr>
 
-<p><b>Company:</b> {$companyName}</p>
-<p><b>Applicant:</b> {$firstName} {$lastName}</p>
-<p><b>Email:</b> {$email}</p>
-<p><b>Branch:</b> {$branch}</p>
-<p><b>Plan:</b> {$subscription}</p>
+    <table style='width:100%; border-collapse: collapse;'>
+        <tr>
+            <td><strong>Company:</strong></td>
+            <td>{$companyName}</td>
+        </tr>
+        <tr>
+            <td><strong>Applicant:</strong></td>
+            <td>{$firstName} {$lastName}</td>
+        </tr>
+        <tr>
+            <td><strong>Email:</strong></td>
+            <td>{$email}</td>
+        </tr>
+        <tr>
+            <td><strong>Branch:</strong></td>
+            <td>{$branch}</td>
+        </tr>
+        <tr>
+            <td><strong>Plan:</strong></td>
+            <td>{$subscription}</td>
+        </tr>
+    </table>
 
-<hr>
-
-<p style='font-size:12px;color:#555;'>
-This upgrade request was submitted via Fil Products System.
-</p>
+    <br>
+    <p style='font-size:12px;color:#555;'>
+        This upgrade request was submitted via Fil Products System.
+    </p>
+</div>
 ";
 
 /* =========================
-   ATTACHMENT (SAFE)
+   ATTACHMENTS
 ========================== */
-
-$mail->addStringAttachment($pdfContent, $fileName);
+if (!empty($pdfContent) && !empty($fileName)) {
+    $mail->addStringAttachment($pdfContent, $fileName);
+}
 
 /* =========================
-   SEND
+   SEND MAIN EMAIL
 ========================== */
-
 $mail->send();
 
+/* =========================
+   CUSTOMER CONFIRMATION
+========================== */
+$mailCustomer = new PHPMailer(true);
+$this->configureSMTP($mailCustomer);
 
+$mailCustomer->setFrom(env('MAIL_USERNAME'), 'Fil Products Butuan');
+$mailCustomer->addAddress($email);
 
-    return redirect()
-        ->route('filbiz.upgrade')
-        ->with('success','✅ Your Filbiz Upgrade request has been successfully submitted.
+$mailCustomer->isHTML(true);
+$mailCustomer->Subject = "Filbiz Upgrade Request Received";
 
-📧 A copy of your request has been sent to your email for your reference.
+$mailCustomer->Body = "
+<h3>Upgrade Request Received</h3>
+<p>Thank you {$companyName},</p>
 
-Our team will review your upgrade request and contact you shortly regarding the next steps.
+<p>Your Filbiz upgrade request has been successfully submitted.</p>
+<p>Our Butuan team will review your request and contact you shortly.</p>
 
-Thank you for choosing Fil Products Samar.
-');
+<br>
+<p>Fil Products Butuan</p>
+";
 
+$mailCustomer->send();
+
+/* =========================
+   RESPONSE
+========================== */
+return redirect()
+    ->route('filbiz.upgrade')
+    ->with('success', '
+    ✅ Your Filbiz Upgrade request has been successfully submitted.<br>
+    📧 A copy has been sent to your email.<br>
+    Our Butuan team will contact you shortly.
+    ');
 }
 
 
@@ -1852,25 +1871,20 @@ file_put_contents($pdfPath,$pdfContent);
 
 
 /* =========================
-   BRANCH EMAIL MAP
+   FIXED BRANCH (BUTUAN ONLY)
 ========================== */
+$branch = 'Butuan';
+$branchRecipient = 'info.cyg@filproducts.ph';
 
-$branchEmails = [
-    'calbayog'   => 'info.cyg@filproducts.ph',
-    'allen'      => 'filproductsallen2022@gmail.com',
-    'mondragon'  => 'mondragon.csr013026@gmail.com',
-    'sanjorge'   => 'filproducts.sanjorge@gmail.com',
-    'catarman'   => 'csrfilproductscatarman@gmail.com',
-    'catbalogan' => 'filproducts.catbalogancsr@gmail.com',
-    'tacloban'   => 'filproductsleyte@gmail.com',
-    'palo'   => 'filproductsleyte@gmail.com',
-];
-
-/* ✅ USE REQUEST (NOT $_POST) */
-$selectedBranch = strtolower($request->branch ?? '');
-$branch = $request->branch ?? 'N/A';
+/* =========================
+   DATA
+========================== */
 $customerEmail = $request->email ?? null;
 $plan = $request->monthly_subscription ?? '';
+
+$fullNameSafe = htmlspecialchars($fullName ?? '');
+$emailSafe = htmlspecialchars($customerEmail ?? '');
+$planSafe = htmlspecialchars($plan ?? '');
 
 /* =========================
    SEND EMAIL
@@ -1878,14 +1892,12 @@ $plan = $request->monthly_subscription ?? '';
 
 $mail = new PHPMailer(true);
 
+/* SMTP (keep or replace with helper if available) */
 $mail->isSMTP();
-
-/* SMTP */
 $mail->Host = 'mail.filproducts-cyg.com';
 $mail->SMTPAuth = true;
 $mail->Username = 'noreply@filproducts-cyg.com';
 $mail->Password = '8kKAahOE*.E,7uJZ';
-
 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
 $mail->Port = 465;
 
@@ -1899,63 +1911,76 @@ $mail->SMTPOptions = [
 ];
 
 /* FROM */
-$mail->setFrom('noreply@filproducts-cyg.com', 'Fil Products Samar');
+$mail->setFrom('noreply@filproducts-cyg.com', 'Fil Products Butuan');
 
 /* HEADERS */
 $mail->Sender = 'noreply@filproducts-cyg.com';
 $mail->addCustomHeader('X-Mailer', 'PHP/' . phpversion());
 
-/* ============================
+/* =========================
    RECIPIENTS
-============================ */
+========================== */
 
-/* ✅ SEND TO CUSTOMER */
-if ($customerEmail) {
+/* CUSTOMER */
+if (!empty($customerEmail)) {
     $mail->addAddress($customerEmail);
     $mail->addReplyTo($customerEmail, $fullName);
 }
 
-/* ✅ SEND TO SELECTED BRANCH */
-if (isset($branchEmails[$selectedBranch])) {
-    $mail->addAddress($branchEmails['butuan']);
-} else {
-    $mail->addAddress('info.cyg@filproducts.ph');
-}
+/* BUTUAN / ADMIN */
+$mail->addAddress($branchRecipient);
+$mail->addCC($branchRecipient);
 
-/* ✅ SEND COPY TO ADMIN */
-$mail->addCC('info.cyg@filproducts.ph');
-
-/* ============================
-   CONTENT
-============================ */
+/* =========================
+   CONTENT (UPDATED FORMAT)
+========================== */
 
 $mail->isHTML(true);
 $mail->CharSet = 'UTF-8';
 
-$mail->Subject = "Residential Application - " . $fullName;
+$mail->Subject = "Residential Application - {$fullNameSafe}";
 
 $mail->Body = "
-<h3 style='margin-bottom:10px;'>Residential Application</h3>
+<div style='font-family: Arial, sans-serif; font-size:14px; color:#333;'>
+    <h2 style='color:#0275d8;'>Residential Application</h2>
+    <hr>
 
-<p><b>Applicant Name:</b> {$fullName}</p>
-<p><b>Email:</b> {$customerEmail}</p>
-<p><b>Branch:</b> {$branch}</p>
-<p><b>Plan Selected:</b> {$plan}</p>
+    <table style='width:100%; border-collapse: collapse;'>
+        <tr>
+            <td><strong>Applicant:</strong></td>
+            <td>{$fullNameSafe}</td>
+        </tr>
+        <tr>
+            <td><strong>Email:</strong></td>
+            <td>{$emailSafe}</td>
+        </tr>
+        <tr>
+            <td><strong>Branch:</strong></td>
+            <td>{$branch}</td>
+        </tr>
+        <tr>
+            <td><strong>Plan:</strong></td>
+            <td>{$planSafe}</td>
+        </tr>
+    </table>
 
-<hr>
-
-<p style='font-size:12px;color:#555;'>
-This application was submitted via Fil Products System.
-</p>
+    <br>
+    <p style='font-size:12px;color:#555;'>
+        This application was submitted via Fil Products System.
+    </p>
+</div>
 ";
 
-/* ============================
+/* =========================
    ATTACHMENTS
-============================ */
+========================== */
 
-$mail->addStringAttachment($pdfContent, $fileName);
+/* PDF */
+if (!empty($pdfContent) && !empty($fileName)) {
+    $mail->addStringAttachment($pdfContent, $fileName);
+}
 
-/* ⚠️ LIMIT EXTRA FILES */
+/* LIMIT EXTRA FILES */
 $maxAttachments = 2;
 $count = 0;
 
@@ -1963,28 +1988,57 @@ foreach ($attachments as $file) {
     if ($file && file_exists($file)) {
         $mail->addAttachment($file);
         $count++;
-
         if ($count >= $maxAttachments) break;
     }
 }
 
-/* ============================
-   SEND
-============================ */
-
+/* =========================
+   SEND MAIN EMAIL
+========================== */
 $mail->send();
+
+/* =========================
+   CUSTOMER CONFIRMATION
+========================== */
+
+$mailCustomer = new PHPMailer(true);
+$mailCustomer->isSMTP();
+$mailCustomer->Host = 'mail.filproducts-cyg.com';
+$mailCustomer->SMTPAuth = true;
+$mailCustomer->Username = 'noreply@filproducts-cyg.com';
+$mailCustomer->Password = '8kKAahOE*.E,7uJZ';
+$mailCustomer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+$mailCustomer->Port = 465;
+
+$mailCustomer->setFrom('noreply@filproducts-cyg.com', 'Fil Products Butuan');
+$mailCustomer->addAddress($customerEmail);
+
+$mailCustomer->isHTML(true);
+$mailCustomer->Subject = "Residential Application Received";
+
+$mailCustomer->Body = "
+<h3>Application Received</h3>
+<p>Thank you {$fullNameSafe},</p>
+
+<p>Your residential application has been successfully submitted.</p>
+<p>Our Butuan team will review your application and contact you shortly.</p>
+
+<br>
+<p>Fil Products Butuan</p>
+";
+
+$mailCustomer->send();
+
+/* =========================
+   RESPONSE
+========================== */
 
 return redirect()
     ->route('residential.inquiry')
     ->with('success',
-        '✅ Your Residential Application has been successfully submitted.
-
-📧 A copy of your application has been sent to your email for your reference.
-
-Our team will review your application and contact you shortly to schedule your installation.
-
-Thank you for choosing Fil Products Samar.
-'
+        '✅ Your Residential Application has been successfully submitted.<br>
+        📧 A copy has been sent to your email.<br>
+        Our Butuan team will contact you shortly.'
     );
 
 } catch (\Exception $e) {
@@ -2390,25 +2444,20 @@ file_put_contents($pdfPath,$pdfContent);
 
 
 /* =========================
-   BRANCH EMAIL MAP
+   FIXED BRANCH (BUTUAN ONLY)
 ========================== */
+$branch = 'Butuan';
+$branchRecipient = 'info.cyg@filproducts.ph';
 
-$branchEmails = [
-    'calbayog'   => 'info.cyg@filproducts.ph',
-    'allen'      => 'filproductsallen2022@gmail.com',
-    'mondragon'  => 'mondragon.csr013026@gmail.com',
-    'sanjorge'   => 'filproducts.sanjorge@gmail.com',
-    'catarman'   => 'csrfilproductscatarman@gmail.com',
-    'catbalogan' => 'filproducts.catbalogancsr@gmail.com',
-    'tacloban'   => 'filproductsleyte@gmail.com',
-    'palo'   => 'filproductsleyte@gmail.com',
-];
-
-/* ✅ USE REQUEST */
-$selectedBranch = strtolower($request->branch ?? '');
-$branch = $request->branch ?? 'N/A';
+/* =========================
+   DATA
+========================== */
 $customerEmail = $request->email ?? null;
 $plan = $request->monthly_subscription ?? '';
+
+$fullNameSafe = htmlspecialchars($fullName ?? '');
+$emailSafe = htmlspecialchars($customerEmail ?? '');
+$planSafe = htmlspecialchars($plan ?? '');
 
 /* =========================
    SEND EMAIL
@@ -2423,7 +2472,6 @@ $mail->Host = 'mail.filproducts-cyg.com';
 $mail->SMTPAuth = true;
 $mail->Username = 'noreply@filproducts-cyg.com';
 $mail->Password = '8kKAahOE*.E,7uJZ';
-
 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
 $mail->Port = 465;
 
@@ -2437,79 +2485,121 @@ $mail->SMTPOptions = [
 ];
 
 /* FROM */
-$mail->setFrom('noreply@filproducts-cyg.com', 'Fil Products Samar');
+$mail->setFrom('noreply@filproducts-cyg.com', 'Fil Products Butuan');
 
 /* HEADERS */
 $mail->Sender = 'noreply@filproducts-cyg.com';
 $mail->addCustomHeader('X-Mailer', 'PHP/' . phpversion());
 
-/* ============================
+/* =========================
    RECIPIENTS
-============================ */
+========================== */
 
-/* ✅ SEND TO CUSTOMER */
-if ($customerEmail) {
+/* CUSTOMER */
+if (!empty($customerEmail)) {
     $mail->addAddress($customerEmail);
     $mail->addReplyTo($customerEmail, $fullName);
 }
 
-/* ✅ SEND TO SELECTED BRANCH */
-if (isset($branchEmails[$selectedBranch])) {
-    $mail->addAddress($branchEmails['butuan']);
-} else {
-    $mail->addAddress('info.cyg@filproducts.ph');
-}
+/* BUTUAN / ADMIN */
+$mail->addAddress($branchRecipient);
+$mail->addCC($branchRecipient);
 
-/* ✅ SEND COPY TO ADMIN */
-$mail->addCC('info.cyg@filproducts.ph');
-
-/* ============================
-   CONTENT
-============================ */
+/* =========================
+   CONTENT (TABLE FORMAT)
+========================== */
 
 $mail->isHTML(true);
 $mail->CharSet = 'UTF-8';
 
-$mail->Subject = "Residential Upgrade - " . $fullName;
+$mail->Subject = "Residential Upgrade - {$fullNameSafe}";
 
 $mail->Body = "
-<h3 style='margin-bottom:10px;'>Residential Upgrade Application</h3>
+<div style='font-family: Arial, sans-serif; font-size:14px; color:#333;'>
+    <h2 style='color:#5cb85c;'>Residential Upgrade Request</h2>
+    <hr>
 
-<p><b>Applicant Name:</b> {$fullName}</p>
-<p><b>Email:</b> {$customerEmail}</p>
-<p><b>Branch:</b> {$branch}</p>
-<p><b>Plan Selected:</b> {$plan}</p>
+    <table style='width:100%; border-collapse: collapse;'>
+        <tr>
+            <td><strong>Applicant:</strong></td>
+            <td>{$fullNameSafe}</td>
+        </tr>
+        <tr>
+            <td><strong>Email:</strong></td>
+            <td>{$emailSafe}</td>
+        </tr>
+        <tr>
+            <td><strong>Branch:</strong></td>
+            <td>{$branch}</td>
+        </tr>
+        <tr>
+            <td><strong>Plan:</strong></td>
+            <td>{$planSafe}</td>
+        </tr>
+    </table>
 
-<hr>
-
-<p style='font-size:12px;color:#555;'>
-This application was submitted via Fil Products System.
-</p>
+    <br>
+    <p style='font-size:12px;color:#555;'>
+        This upgrade request was submitted via Fil Products System.
+    </p>
+</div>
 ";
 
-/* ============================
+/* =========================
    ATTACHMENT
-============================ */
+========================== */
+if (!empty($pdfContent) && !empty($fileName)) {
+    $mail->addStringAttachment($pdfContent, $fileName);
+}
 
-$mail->addStringAttachment($pdfContent, $fileName);
-
-/* ============================
-   SEND
-============================ */
-
+/* =========================
+   SEND MAIN EMAIL
+========================== */
 $mail->send();
+
+/* =========================
+   CUSTOMER CONFIRMATION
+========================== */
+
+$mailCustomer = new PHPMailer(true);
+
+$mailCustomer->isSMTP();
+$mailCustomer->Host = 'mail.filproducts-cyg.com';
+$mailCustomer->SMTPAuth = true;
+$mailCustomer->Username = 'noreply@filproducts-cyg.com';
+$mailCustomer->Password = '8kKAahOE*.E,7uJZ';
+$mailCustomer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+$mailCustomer->Port = 465;
+
+$mailCustomer->setFrom('noreply@filproducts-cyg.com', 'Fil Products Butuan');
+$mailCustomer->addAddress($customerEmail);
+
+$mailCustomer->isHTML(true);
+$mailCustomer->Subject = "Residential Upgrade Request Received";
+
+$mailCustomer->Body = "
+<h3>Upgrade Request Received</h3>
+<p>Thank you {$fullNameSafe},</p>
+
+<p>Your residential upgrade request has been successfully submitted.</p>
+<p>Our Butuan team will review your request and contact you shortly.</p>
+
+<br>
+<p>Fil Products Butuan</p>
+";
+
+$mailCustomer->send();
+
+/* =========================
+   RESPONSE
+========================== */
 
 return redirect()
     ->route('residential.upgrade')
     ->with('success',
-        '✅ Your Residential Upgrade request has been successfully submitted.
-
-📧 A copy of your request has been sent to your email for your reference.
-
-Our team will review your upgrade request and contact you shortly to schedule your installation.
-
-Thank you for choosing Fil Products Samar.
-'
+        '✅ Your Residential Upgrade request has been successfully submitted.<br>
+        📧 A copy has been sent to your email.<br>
+        Our Butuan team will contact you shortly.'
     );
 
 } catch (\Exception $e) {

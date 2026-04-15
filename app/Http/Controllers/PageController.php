@@ -259,19 +259,16 @@ if(!file_exists($uploadDir)){
 
 $attachments = [];
 
-function saveFile($request, $field, $uploadDir){
+function saveFile($request, $field){
     if($request->hasFile($field)){
-        $file = $request->file($field);
-        $name = time().'_'.$file->getClientOriginalName();
-        $file->move($uploadDir, $name);
-        return $uploadDir.$name;
+        return $request->file($field)->store('attachments', 'public');
     }
     return null;
 }
 
-$businessPermitPath = saveFile($request, 'business_permit', $uploadDir);
-$dtiSecPath        = saveFile($request, 'dti_sec', $uploadDir);
-$validIdPath       = saveFile($request, 'valid_id', $uploadDir);
+$businessPermitPath = saveFile($request, 'business_permit');
+$dtiSecPath        = saveFile($request, 'dti_sec');
+$validIdPath       = saveFile($request, 'valid_id');
 
 /* =========================
        GENERATE PDF
@@ -748,15 +745,15 @@ $mail->Body = "
 ";
 
 $businessPermitURL = $businessPermitPath 
-    ? asset('storage/attachments/' . basename($businessPermitPath)) 
+    ? asset('storage/' . $businessPermitPath) 
     : null;
 
 $dtiSecURL = $dtiSecPath 
-    ? asset('storage/attachments/' . basename($dtiSecPath)) 
+    ? asset('storage/' . $dtiSecPath) 
     : null;
 
 $validIdURL = $validIdPath 
-    ? asset('storage/attachments/' . basename($validIdPath)) 
+    ? asset('storage/' . $validIdPath) 
     : null;
 
 $mail->Body .= "<br><br><h4>Uploaded Documents</h4><ul>";

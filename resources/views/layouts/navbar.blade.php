@@ -26,7 +26,7 @@
     <div class="nav-container">
         <div class="nav-left">
             <a href="{{ route('home') }}" class="logo-wrapper">
-                <img src="{{ asset('images/fil-products-logo.png') }}" alt="Fil Products Logo" class="logo">
+                <img src="{{ asset('public/images/fil-products-logo.png') }}" alt="Fil Products Logo" class="logo">
                 <div class="brand-info">
                     <span class="brand-label">Fil Products</span>
                     <span class="brand-sub">Butuan</span>

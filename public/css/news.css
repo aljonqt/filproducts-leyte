@@ -51,6 +51,15 @@
     gap: 30px;
 }
 
+/* Promo Card Specific (No Image) */
+.promo-card {
+    background: linear-gradient(135deg, #003366 0%, #050f1f 100%);
+    border: none;
+}
+
+.promo-card h3, .promo-card p { color: white; }
+.promo-card .news-link { color: #00d4ff; }
+
 /* MODERN NEWS CARD */
 .news-card {
     background: rgba(255, 255, 255, 0.7);

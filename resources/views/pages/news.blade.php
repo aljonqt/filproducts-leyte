@@ -13,22 +13,12 @@
         </div>
 
         <div class="news-list">
-            <article class="news-card">
-                <div class="news-image-wrapper">
-                    <img src="{{ asset('public/images/networkexpansion.png') }}" alt="Network Expansion" class="news-image">
-                    <span class="news-date">Active Expansion</span>
-                </div>
-                <div class="news-content">
-                    <p class="news-location">
-                        <i class="fas fa-broadcast-tower"></i> Infrastructure Update
-                    </p>
-                    <h3>Fiber Expansion Across Samar</h3>
-                    <p>
-                        Our engineering team is working tirelessly to lay new fiber lines across the region, targeting 100% coverage for residential communities.
-                    </p>
-                    <a href="#" class="news-cta">
-                        View Coverage Area <i class="fas fa-arrow-right"></i>
-                    </a>
+            <article class="news-card promo-card">
+                <div class="news-body">
+                    <span class="news-tag promo">Special Promo</span>
+                    <h3>Free Cable TV Promo</h3>
+                    <p>Elevate your home entertainment. All residential internet plans now include <strong>FREE cable TV access</strong> at no extra cost.</p>
+                    <a href="#plans" class="news-link">View Plans <i class="fas fa-arrow-right"></i></a>
                 </div>
             </article>
 

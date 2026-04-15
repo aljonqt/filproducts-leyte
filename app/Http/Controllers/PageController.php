@@ -903,10 +903,14 @@ $pdf->SetFont('helvetica','B',14);
 $pdf->SetTextColor(180,0,0);
 $pdf->Cell(0,8,'FILBIZ UPGRADE FORM',0,1);
 
+/* 🔥 RESET COLOR BACK TO BLACK */
+$pdf->SetTextColor(0,0,0);
+
 $pdf->SetFont('helvetica', '', 10);
 $pdf->Cell(0, 6, 'Date Applied: ' . date('m/d/Y'), 0, 1);
 
 $pdf->Ln(5);
+
 
 /* ================= COMPANY INFO ================= */
 

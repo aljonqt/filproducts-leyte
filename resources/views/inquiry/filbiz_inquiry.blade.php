@@ -103,7 +103,7 @@ BUSINESS / FILBIZ SUBSCRIPTION
 <div class="plan-grid">
 
 <label class="plan-card">
-<input type="radio" name="monthly_subscription" value="Up to 100MBPS + Premium Cable TV ₱1,299" required>
+<input type="radio" name="monthly_subscription" value="Up to 100MBPS + Premium Cable TV PHP 1,299" required>
 <h4>Business Starter</h4>
 <p class="speed">100 Mbps</p>
 <span class="price">₱1,299</span>
@@ -111,7 +111,7 @@ BUSINESS / FILBIZ SUBSCRIPTION
 </label>
 
 <label class="plan-card">
-<input type="radio" name="monthly_subscription" value="Up to 200MBPS + Premium Cable TV ₱1,599">
+<input type="radio" name="monthly_subscription" value="Up to 200MBPS + Premium Cable TV PHP 1,599">
 <h4>Business Pro</h4>
 <p class="speed">200 Mbps</p>
 <span class="price">₱1,599</span>
@@ -119,7 +119,7 @@ BUSINESS / FILBIZ SUBSCRIPTION
 </label>
 
 <label class="plan-card">
-<input type="radio" name="monthly_subscription" value="Up to 300MBPS + Premium Cable TV ₱1,899">
+<input type="radio" name="monthly_subscription" value="Up to 300MBPS + Premium Cable TV PHP 1,899">
 <h4>Business Premium</h4>
 <p class="speed">300 Mbps</p>
 <span class="price">₱1,899</span>
@@ -127,7 +127,7 @@ BUSINESS / FILBIZ SUBSCRIPTION
 </label>
 
 <label class="plan-card">
-<input type="radio" name="monthly_subscription" value="Up to 500MBPS + Premium Cable TV ₱2,000">
+<input type="radio" name="monthly_subscription" value="Up to 500MBPS + Premium Cable TV PHP 2,000">
 <h4>Enterprise</h4>
 <p class="speed">500 Mbps</p>
 <span class="price">₱2,000</span>

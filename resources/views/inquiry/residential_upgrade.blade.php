@@ -152,7 +152,7 @@
 <div class="plan-grid">
 
 <label class="plan-card">
-<input type="radio" name="monthly_subscription" value="50Mbps ₱799" required>
+<input type="radio" name="monthly_subscription" value="50Mbps PHP 799" required>
 <h4>Starter</h4>
 <p class="speed">50 Mbps</p>
 <span class="price">₱799</span>
@@ -160,7 +160,7 @@
 </label>
 
 <label class="plan-card">
-<input type="radio" name="monthly_subscription" value="80Mbps ₱899">
+<input type="radio" name="monthly_subscription" value="80Mbps PHP 899">
 <h4>Basic</h4>
 <p class="speed">80 Mbps</p>
 <span class="price">₱899</span>
@@ -168,7 +168,7 @@
 </label>
 
 <label class="plan-card">
-<input type="radio" name="monthly_subscription" value="100Mbps ₱999">
+<input type="radio" name="monthly_subscription" value="100Mbps PHP 999">
 <h4>Standard</h4>
 <p class="speed">100 Mbps</p>
 <span class="price">₱999</span>
@@ -176,7 +176,7 @@
 </label>
 
 <label class="plan-card">
-<input type="radio" name="monthly_subscription" value="150Mbps ₱1199">
+<input type="radio" name="monthly_subscription" value="150Mbps PHP 1199">
 <h4>Advanced</h4>
 <p class="speed">150 Mbps</p>
 <span class="price">₱1,199</span>
@@ -184,7 +184,7 @@
 </label>
 
 <label class="plan-card">
-<input type="radio" name="monthly_subscription" value="250Mbps ₱1299">
+<input type="radio" name="monthly_subscription" value="250Mbps PHP 1,299">
 <h4>Premium</h4>
 <p class="speed">250 Mbps</p>
 <span class="price">₱1,299</span>
@@ -192,7 +192,7 @@
 </label>
 
 <label class="plan-card">
-<input type="radio" name="monthly_subscription" value="300Mbps ₱1499">
+<input type="radio" name="monthly_subscription" value="300Mbps PHP 1,499">
 <h4>Ultra</h4>
 <p class="speed">300 Mbps</p>
 <span class="price">₱1,499</span>

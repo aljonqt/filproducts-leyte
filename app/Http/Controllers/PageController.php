@@ -178,8 +178,8 @@ public function submitComplaint(Request $request)
             'mobile_number' => $request->mobile_number ?? '',
             'account_name' => $name,
             'address' => $address,
-            'fieldjob_type' => strip_tags($remarks),
-            'remarks' => 'strip_tags($remarks)',
+            'fieldjob_type' => $remarks,
+            'remarks' => '',
             'prepared_by' => 'Website',
             'team_deployed' => '',
             'date_completed' => ''

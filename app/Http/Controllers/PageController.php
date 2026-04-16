@@ -172,17 +172,19 @@ public function submitComplaint(Request $request)
 
         $mailCustomer->send();
 
-            Http::post('https://script.google.com/macros/s/AKfycbzuyoTdrGpxDXH967UPgjxj2IK8QEPdt0bTOpn0oafCUhjMXagBsJymVKH1NZrWH1DRMA/exec', [
-        'mobile_number' => 'nullable|string|max:20',
-        'account_name' => $name,
-        'date_created' => now()->toDateTimeString(),
-        'address' => $address,
-        'branch' => $branch,
-        'remarks' => $remarks,
-        'prepared_by' => 'Website',
-        'team_deployed' => '',
-        'date_completed' => ''
-    ]);
+                Http::withHeaders([
+            'Content-Type' => 'application/json'
+        ])->post('https://script.google.com/macros/s/AKfycbzuyoTdrGpxDXH967UPgjxj2IK8QEPdt0bTOpn0oafCUhjMXagBsJymVKH1NZrWH1DRMA/exec', [
+            'mobile_number' => $request->mobile_number ?? '',
+            'account_name' => $name,
+            'date_created' => now()->toDateTimeString(),
+            'address' => $address,
+            'branch' => $branch,
+            'remarks' => strip_tags($remarks),
+            'prepared_by' => 'Website',
+            'team_deployed' => '',
+            'date_completed' => ''
+        ]);
 
     } catch (\Exception $e) {
 

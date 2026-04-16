@@ -172,9 +172,9 @@ public function submitComplaint(Request $request)
 
         $mailCustomer->send();
 
-                Http::withHeaders([
+                $response = Http::withHeaders([
             'Content-Type' => 'application/json'
-        ])->post('https://script.google.com/macros/s/AKfycbzuyoTdrGpxDXH967UPgjxj2IK8QEPdt0bTOpn0oafCUhjMXagBsJymVKH1NZrWH1DRMA/exec', [
+        ])->post('https://script.google.com/macros/s/AKfycbwmOyT7FvEU94GYP6bkovlEoP2KnUnCQhVgM6m5wXyYI4QEvZSHfLW3gxzeZSD8gQes/exec', [
             'mobile_number' => $request->mobile_number ?? '',
             'account_name' => $name,
             'date_created' => now()->toDateTimeString(),
@@ -185,6 +185,9 @@ public function submitComplaint(Request $request)
             'team_deployed' => '',
             'date_completed' => ''
         ]);
+
+        Log::info('STATUS: ' . $response->status());
+        Log::info('BODY: ' . $response->body());
 
     } catch (\Exception $e) {
 

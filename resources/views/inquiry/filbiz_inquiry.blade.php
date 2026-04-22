@@ -182,6 +182,24 @@ BUSINESS / FILBIZ SUBSCRIPTION
             </div>
         </div>
 
+        <div class="upload-card required">
+            <label>BIR Form 2303 - Certificate of Registration (COR) <span>*</span></label>
+
+            <div class="upload-box">
+                <i class="fas fa-file-contract"></i>
+                <span>Upload BIR Form</span>
+                <small>JPG, PNG, PDF (Max 5MB)</small>
+
+                <input type="file"
+                   name="bir_form"
+                   class="file-input"
+                   accept=".jpg,.jpeg,.png,.pdf"
+                   required>
+            
+            <div class="file-name">No file chosen</div>
+            </div>
+        </div>
+
         <!-- VALID ID -->
         <div class="upload-card required">
             <label>Authorized Signatory Valid ID <span>*</span></label>

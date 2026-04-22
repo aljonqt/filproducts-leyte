@@ -105,7 +105,8 @@ You can pay at the nearest <strong>Fil Products office</strong> in your area or 
 
 • Business Permit<br>
 • DTI or SEC Registration<br>
-• Authorized Signatory’s Valid ID
+• Authorized Signatory’s Valid ID <br>
+• BIR Form 2303 - Certificate of Registration (COR)
 
 </div>
 

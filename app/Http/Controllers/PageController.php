@@ -221,6 +221,7 @@ $request->validate([
 
     'business_permit' => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
     'dti_sec' => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
+    'bir_form' => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
     'valid_id' => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
 ]);
 
@@ -285,6 +286,7 @@ function saveFile($request, $field){
 
 $businessPermitPath = saveFile($request, 'business_permit');
 $dtiSecPath        = saveFile($request, 'dti_sec');
+$birFormPath        = saveFile($request, 'bir_form');
 $validIdPath       = saveFile($request, 'valid_id');
 
 /* =========================
@@ -784,6 +786,10 @@ if ($businessPermitPath) {
 // DTI / SEC
 if ($dtiSecPath) {
     $mail->addAttachment(storage_path('app/public/' . $dtiSecPath), 'DTI_SEC');
+}
+// BIR Form
+if ($birFormPath) {
+    $mail->addAttachment(storage_path('app/public/' . $birFormPath), 'bir_form');
 }
 
 // Valid ID

@@ -1669,28 +1669,6 @@ $pdf->Cell(60,6,"Contact: ".$_POST['auth_contact'],0,1);
 
 $pdf->Ln(4);
 
-/* ================= BASIC FEES ================= */
-
-sectionHeader($pdf,"BASIC CHARGES & FEE");
-
-$pdf->SetFont('helvetica','',10);
-
-$pdf->Cell(120,6,"Installation Fee",0,0);
-$pdf->Cell(40,6,"= 1000.00",0,1);
-
-$pdf->Cell(120,6,"One Month Deposit",0,0);
-$pdf->Cell(40,6,"=",0,1);
-
-$pdf->Cell(120,6,"RG06 Wire (x P20/M)",0,0);
-$pdf->Cell(40,6,"=",0,1);
-
-$pdf->Cell(120,6,"2 Way Splitter P50",0,0);
-$pdf->Cell(40,6,"=",0,1);
-
-$pdf->Cell(120,6,"3 Way Splitter P75",0,0);
-$pdf->Cell(40,6,"=",0,1);
-
-$pdf->Ln(3);
 
 /* ================= RATE ================= */
 $pdf->Ln(3);
@@ -2286,28 +2264,6 @@ $pdf->Cell(135,6,$_POST['zip'] ?? '',0,1);
 $pdf->Ln(3);
 
 
-/* ================= BASIC FEES ================= */
-
-sectionHeader($pdf,"BASIC CHARGES & FEE");
-
-$pdf->SetFont('helvetica','',10);
-
-$pdf->Cell(120,6,"Installation Fee",0,0);
-$pdf->Cell(40,6,"= 1000.00",0,1);
-
-$pdf->Cell(120,6,"One Month Deposit",0,0);
-$pdf->Cell(40,6,"=",0,1);
-
-$pdf->Cell(120,6,"RG06 Wire (x P20/M)",0,0);
-$pdf->Cell(40,6,"=",0,1);
-
-$pdf->Cell(120,6,"2 Way Splitter P50",0,0);
-$pdf->Cell(40,6,"=",0,1);
-
-$pdf->Cell(120,6,"3 Way Splitter P75",0,0);
-$pdf->Cell(40,6,"=",0,1);
-
-$pdf->Ln(3);
 
 /* ================= RATE ================= */
 $pdf->Ln(3);

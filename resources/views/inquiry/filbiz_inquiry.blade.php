@@ -3,6 +3,9 @@
 @section('content')
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+@vite(['resources/js/app.js'])
+
 <link rel="stylesheet" href="{{ asset('css/filbiz.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -15,14 +18,19 @@
 </div>
 @endif
 
-<form method="POST" action="{{ route('filbiz.submit') }}" enctype="multipart/form-data">
+<form id="filbizForm"
+      method="POST"
+      action="{{ route('filbiz.submit') }}"
+      enctype="multipart/form-data">
 @csrf
 
 <div class="section-header">Filbiz Application Form</div>
 
 <div class="section-title">BUSINESS OR COMPANY INFORMATION</div>
+
 <input type="hidden" name="branch" value="butuan">
 <div class="row row-2">
+
 <div class="form-group">
 <label>Business or Company Name</label>
 <input type="text" name="companyname" required>
@@ -139,7 +147,7 @@ BUSINESS / FILBIZ SUBSCRIPTION
 <div class="attachment-section">
 
     <div class="section-title" style="margin-top:40px;">
-        📎 Required Document Attachments
+        Required Document Attachments
     </div>
 
     <div class="attachment-grid">
@@ -181,22 +189,21 @@ BUSINESS / FILBIZ SUBSCRIPTION
             <div class="file-name">No file chosen</div>
             </div>
         </div>
-
+        
         <div class="upload-card required">
-            <label>BIR Form 2303 - Certificate of Registration (COR) <span>*</span></label>
+            <label>BIR Form 2303 - Certificate of Registration (TOR)<span>*</span></label>
 
             <div class="upload-box">
                 <i class="fas fa-file-contract"></i>
                 <span>Upload BIR Form</span>
                 <small>JPG, PNG, PDF (Max 5MB)</small>
-
                 <input type="file"
-                   name="bir_form"
-                   class="file-input"
-                   accept=".jpg,.jpeg,.png,.pdf"
-                   required>
-            
-            <div class="file-name">No file chosen</div>
+                       name="bir_form"
+                       class="file-input"
+                       accept=".jpg,.jpeg,.png,.pdf"
+                       required>
+                
+                <div class="file-name">No file chosen</div>
             </div>
         </div>
 
@@ -240,7 +247,7 @@ style="width:18px;height:18px;cursor:pointer;">
 
 <span
 style="color:#003366;font-weight:600;text-decoration:underline;cursor:pointer; max-width:500px;"
-onclick="openDeclaration()">
+data-open-declaration>
 
 I have read and agree to the Subscriber's Declaration
 
@@ -248,9 +255,22 @@ I have read and agree to the Subscriber's Declaration
 
 </div>
 
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:15px;">
+
+                <input type="checkbox" id="contractCheck" name="contract_agree" value="1"
+                style="width:18px;height:18px;cursor:pointer;">
+
+                <span 
+                style="color:#003366;font-weight:600;cursor:pointer;text-decoration:underline"
+                data-open-contract>
+                    I agree to the Terms & Contract Agreement
+                </span>
+
+            </div>
+
 <button
 type="button"
-onclick="openSignaturePad()"
+data-open-signature
 style="
 background:#003366;
 color:white;
@@ -282,7 +302,7 @@ cursor:not-allowed;
 font-size:15px;
 ">
 
-Submit Residential Inquiry
+Submit Filbiz Inquiry
 
 </button>
 
@@ -344,8 +364,10 @@ margin-top:8px;
 Click the map to mark your house location.
 </div>
 
+
+
 <button type="button"
-onclick="getUserLocation()"
+data-get-location
 style="
 margin-top:8px;
 background:#28a745;
@@ -360,10 +382,12 @@ Auto Detect My Location
 </button>
 
 </div>
-
 </div>
 
-
+                    <!-- NOTICE -->
+        <div style="margin-top: 20px; padding: 10px; background-color: #fff3cd; border-left: 5px solid #ffc107; font-size: 14px;">
+            <strong>Notice:</strong> By submitting this application, the applicant acknowledges that they have carefully read, understood, and agreed to the terms and conditions outlined in the contract.
+        </div>
 </form>
 
 </div>
@@ -390,7 +414,7 @@ plans, products and/or services and that any enrolment I have indicated herein h
             </p>
 
             <p>
-               3. I hereby authorize FIL PRODUCTS SERVICE TELEVISION OF CALBAYOG, INC. (hereinafter "you") or any person or
+               3. I hereby authorize FIL PRODUCTS SERVICE TELEVISION OF BUTUAN, INC. (hereinafter "you") or any person or
 entity authorized by you, to verify any information about me and/or documents available from whatever source including but
 not limited to (i) your subsidiaries, affiliates, and/or their service providers: or (ii) banks, credit card companies, and other
 lending and/or financial institution, and I hereby authorize the holder, controller and processor of such information and/or
@@ -440,12 +464,398 @@ equipments).
             </p>
         </div>
 
-        <button type="button" onclick="closeDeclaration()" class="modal-close-btn">
+        <button type="button" data-close-declaration class="modal-close-btn">
             Close
         </button>
 
     </div>
 </div>
+
+<div class="modal-overlay" id="contractModal">
+            <div class="contract-container">
+
+                <h3 class="contract-title">CONTRACT AGREEMENT</h3>
+
+                <div class="contract-scroll">
+
+                <div class="contract-pages">
+
+                    <!-- PAGE 1 -->
+        <div class="contract-page">
+            <div class="page-inner">
+
+                <p class="center"><strong>KNOW ALL MEN BY THESE PRESENTS:</strong></p>
+                <br>
+                <p>
+                    This <strong>CONTRACT SUBSCRIPTION</strong> is made and entered into this day of 
+                    <span class="line-date" id="contract_day">__</span> 
+                    of 
+                    <span class="line-date" id="contract_month">________</span>, 
+                    <span class="line-date" id="contract_year">20__</span>
+                    by and between <strong>FIL PRODUCTS SERVICE TELEVISION OF BUTUAN, INC.</strong>, a corporation 
+                    duly organized and existing under and by virtue of Philippine laws with principal office at N&D Bldg., Alviola Village Baan KM. Butuan City, Philippines, hereinafter referred to as <strong>FPSTI</strong>:
+                </p>
+                <br>
+                <p class="center" style="text-align: center;"><strong>AND</strong></p>
+                <br>
+                <p>
+                    I 
+                    <span class="fill-line" id="contract_name">________________</span>, 
+                    of legal age, and resident of 
+                    <span class="fill-line" id="contract_address">________________</span>hereinafter referred to as the SUBSCRIBER.
+                </p>
+                <br>
+                <p class="center" style="text-align: center;"><strong>WITNESSETH:</strong></p>
+                <br>
+                <p><strong>1.</strong> FPSTI is an entity authorized by law to build and maintain satellite receiver and cable lines in <span class="line-date" id="contract_branch">__________</span>, Agusan del Norte, and provide the SUBSCRIBER with cable TV and internet connection.FPSTIshall not be held legally liable for any change, injury, or illegal acts that the subscribers might have caused in the use of the said services.</p>
+
+                <p><strong>2.</strong> FPSTI does not give warranty or guarantee that the cable TV and internet connection it will provide to the subscriber will be free from interruption. </p>
+
+                <p><strong>3.</strong> FPSTI exercises no control over the content of the information that would pass through FPSTI’s cable TV and internet connection facilities, thereby freeing it from any liability whatsoever in whatever form.</p>
+
+                <p><strong>4.</strong> The SUBSCRIBER agrees to pay FPSTIthe one-time installation charges, one-month deposit and other applicable basic charges and fees as agreed upon by the SUBSCRIBERin the application form that is signed. All charges and fees shall be non-refundable.The one-month deposit being non-refundable may be consumed to cover the last month of this contract, or may be made part of the Pre-Termination Fee as provided in paragraph 8 hereof.</p>
+
+                <p><strong>5.</strong> The monthly subscription fee for the cable TV and internet connection, whether individually separate or as a package, shall become due and payable without necessity of demand or billing upon the end of each billing cycle.</p>
+
+                <p><strong>6.</strong> reserves the right to increase the subscription fees and other charges upon prior notice to the subscriber. The FPSTIshall notify the subscriber 15 days prior to its implementation by posting the same in all FPSTIcollection offices. </p>
+
+                <p><strong>7.</strong> All payment of subscription fees and charges shall be made at any FPSTI collection office or by collecting agencies authorized and accredited by FPSTI.</p>
+
+                <p><strong>8.</strong> The Internet Modem that FPSTI assigns to SUBSCRIBER, once connected, is not transferrable. The right to use the Internet Modem shall not be leased, transferred or assigned to another person without a written consent and notification from FPSTI. The right to use the service is not transferrable. Accounts are for SUBSCRIBER’s use only. The cable TV and internet connection provided by FPSTIfor the SUBSCRIBER are subject to a lock-in period of three (3) years. A pre-termination fee of the equivalent in PESOS (Monthly Subscription Fee x 3 months)shall be payable by the SUBSCRIBER to FPSTI; otherwise, the billing for the monthly subscription will continue to take effect.</p>
+
+                <p><strong>9.</strong> FPSTI shall be responsible in the maintenance and repair of its cable and fiber optic lines. The SUBSCRIBER agrees that only duly authorized employees/technicians of FPSTI shall be allowed to enter the former’s premises for ocular inspection/installation/disconnection/pull-out of equipments and/or repair purposes during the reasonable hours of the day. </p>
+
+                <p><strong>10.</strong> The SUBSCRIBER agrees to grant FPSTIeasement to use an existing passage forcable TV and internet connection in the interior or neighboring premises or areas. FPSTI shall be entitled free of charge to an easement over the SUBSCRIBER’s premises for the passage of repairmen, crossing or laying of cable wire, whether aerial or underground and other connection facilities.</p>
+
+                <p><strong>11.</strong> Tampering with the INTERNET MODEM is strictly prohibited. FPSTIreserves the right to immediately suspend the service, blacklist the subscriber and confiscate the INTERNET MODEM foundtampered.</p>
+
+                <p><strong>12.</strong> Materials, equipments and accessories charged to the SUBSCRIBER are considered as FPSTIproperty during the existence and validity of the contract and even beyond the termination thereof if the SUBSCRIBER still has an outstanding or unpaid account with FPSTI.</p>
+
+                <p><strong>13.</strong> The SUBSCRIBER shall take full responsibility in safeguarding and preserving all properties of FPSTI, entrusted and installed within the premises of the SUBSCRIBER property until the same are officially turned over to the latter.</p>
+
+                <p><strong>14.</strong> The SUBSCRIBER shall be liable and responsible for any damage to FPSTI’s property, facilities and equipment entrusted to the former, caused by the negligence, misuse and abuse by the SUBSCRIBER, except through the normal wear and tear. The SUBSCRIBER shall pay corresponding charges, if any, for the necessary repair or replacement of damaged property facilities and equipment.</p>
+
+                <p><strong>15.</strong> The SUBSCRIBER is aware and cognizant of the fact that FPSTI is making use of poles owned by one or more utility companies, and that, these companies have controlling interests over the utilization of such poles. Thus, the SUBSCRIBER agrees to hold FPSTIfree from any and all claims, losses or damage that the SUBSCRIBER may incur or suffer in the event that discontinuance of the use of the said poles will transpire beyond the control of FPSTI.</p>
+
+                <p><strong>16.</strong> 16.	FPSTI shall not be responsible for any delays, interruptions, non-service which are out of bounds of its operational limits due to power failure, acts of God, acts of nature, acts of any government or supernatural authority, war or public emergency, accident, fire, lightning, riot, strikes, lock-outs, industrial disputes and failure/breakdown of SUBSCRIBER’S owned and managed network facilities.</p>
+
+                <div class="page-number">Page 1 of 2</div>
+
+            </div>
+        </div>
+
+                    <!-- PAGE 2 -->
+                    <div class="contract-page">
+                    <div class="page-inner">
+
+                        <p><strong>17.</strong> The system installed and operated by FPSTI is passive-oriented, low voltage DC-type incapable of causing any damage to the computer or television set. This system has been tested and approved by the proper government agency and its satisfactory reception is dependent on a properly functioning computer or television set to be provided and maintained by the SUBSCRIBER under his exclusive responsibility. FPSTIshall not have any responsibility whatsoever with respect to the condition, defect or performance of the SUBSCRIBER’s computer and/or television set(s) or any such other damages.</p>
+
+                        <p><strong>18.</strong> FPSTI shall have the right to automatically deactivate the INTERNET MODEM in case of:</p>
+
+                        <p style="margin-left:20px;"><strong>a.)</strong> Non-payment of one (1) month for Bundle Subscribers. (Internet and Cable), and/or effect immediate disconnection and removal of the INTERNET MODEM/ equipment/properties from the SUBSCRIBER’s premises upon non-settlement of the account FIFTEEN DAYS (15) after the grace period extended from due date;</p>
+
+                        <p style="margin-left:20px;"><strong>b.)</strong> Violation by the SUBSCRIBER of any of the foregoing provisions of this CONTRACT, subject to FPSTI’s right to collect all the unpaid dues through the proper authority or court of jurisdiction.</p>
+
+                        <p><strong>19.</strong> If disconnection and discontinuation of internet services are effected by FPSTIdue to default of bill payments on the part of the SUBSCRIBER, the latter may apply for reconnection and resumption of subscription services for the remainder of the present CONTRACT after satisfying the conditions for reconnection.</p>
+
+                        <p><strong>20.</strong> Except by expressed written waiver, any delay, neglect of forbearance of FPSTIto require or enforce any of the provisions of this CONTRACT shall not prejudice the right of FPSTIto exercise or to act strictly afterwards in accordance with the said provisions.</p>
+
+                        <p><strong>21.</strong> Any action arising from this CONTRACT shall be filed in the appropriate Trial Court in Butuan City to the exclusion of any court. The aggrieved party shall be entitled to attorney’s fees and collection expenses equivalent to 25% of the total amount due which in no case shall be less than Php 3,000.00.</p>
+
+                        <p><strong>22.</strong> This contract shall be enforced until terminated by FPSTI or by the SUBSCRIBER upon five-day (5) prior notice in writing with or without cause. All unpaid dues, arrears and monthly subscriptions for the period shall be settled by the latter prior to the effectivity of the termination.</p>
+
+                        <br>
+
+                        <p class="center"><strong>IN WITNESS WHEREOF</strong>, the parties have hereunto signed this contract.</p>
+
+                        <br><br>
+
+                        <!-- SIGNATURES -->
+                        <div style="display:flex; justify-content:space-between; margin-top:40px;">
+                            <div style="text-align:center;">
+                        <!-- SIGNATURE IMAGE -->
+                        <img id="contract_signature_img"
+                            style="max-height:70px; display:none; margin:0 auto 5px auto;">
+
+                        <!-- NAME LINE -->
+                        <span class="fill-line" id="contract_signature_name">
+                            ___________________________
+                        </span><br>
+
+                        SUBSCRIBER
+                    </div>
+
+                            <div style="text-align:center;">
+                                ___________________________<br>
+                                FPSTI REPRESENTATIVE
+                            </div>
+                        </div>
+
+                        <br><br>
+
+                        <p style="text-align: center;"><strong>Signed in the presence of:</strong></p>
+
+                        <div style="display:flex; justify-content:space-between; margin-top:20px;">
+                            <div>___________________________<br><p style="text-align: center;">Witness</p></div>
+                            <div>___________________________<br><p style="text-align: center;">Witness</p></div>
+                        </div>
+
+                        <br><br>
+
+                        <!-- ACKNOWLEDGEMENT -->
+                    <p class="center"><strong>ACKNOWLEDGEMENT</strong></p>
+
+                    <p>
+                    REPUBLIC OF THE PHILIPPINES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )<br>
+                    CITY OF BUTUAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ) SS<br>
+                    PROVINCE OF AGUSAN DEL NORTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )
+                    </p>
+
+                    <p>
+                    BEFORE ME, personally appeared this day of 
+                    <span class="line-date" id="ack_day">________</span> in 
+                    <span class="line-date" id="ack_place">________</span>, Butuan City, Philippines 
+                    the following with their evidence of identity written opposite their name below:
+                    </p>
+
+                    <br>
+
+                    <table style="width:100%; border-collapse: collapse; text-align:center;">
+                        <tr>
+                            <td style="border-bottom:1px solid #000;">Name</td>
+                            <td style="border-bottom:1px solid #000;">ID No.</td>
+                            <td style="border-bottom:1px solid #000;">Date/Place of Issue</td>
+                        </tr>
+                        <tr>
+                            <td id="ack_name" style="height:30px;"></td>
+                        <td></td>
+                        <td></td>
+                        </tr>
+                    </table>
+
+                    <br><br>
+
+                    <p>
+                    All known to me and to me known to be the same persons who executed the foregoing instrument and they acknowledged that the same is their free and voluntary act and deed. This instrument consists of two (2) pages including the page where this acknowledgement is written, signed by the parties together with their instrumental witnesses in all pages hereof.
+                    </p>
+
+                    <p>
+                    Witness my hand and seal, on the day, year and place first written above.
+                    </p>
+
+                    <br>
+
+                    <p>
+                    Doc. No. _______<br>
+                    Page No. _______<br>
+                    Book No. _______<br>
+                    Series of _______
+                    </p>
+
+                    <div class="page-number">Page 2 of 2</div>
+
+                    </div>
+                </div>
+
+                </div>
+
+                <button type="button" data-close-contract class="modal-close-btn">
+                    Close
+                </button>
+                </div>
+            </div>
+        </div><div class="modal-overlay" id="contractModal">
+            <div class="contract-container">
+
+                <h3 class="contract-title">CONTRACT AGREEMENT</h3>
+
+                <div class="contract-scroll">
+
+                <div class="contract-pages">
+
+                    <!-- PAGE 1 -->
+        <div class="contract-page">
+            <div class="page-inner">
+
+                <p class="center"><strong>KNOW ALL MEN BY THESE PRESENTS:</strong></p>
+                <br>
+                <p>
+                    This <strong>CONTRACT SUBSCRIPTION</strong> is made and entered into this day of 
+                    <span class="line-date" id="contract_day">__</span> 
+                    of 
+                    <span class="line-date" id="contract_month">________</span>, 
+                    <span class="line-date" id="contract_year">20__</span>
+                    by and between <strong>FIL PRODUCTS SERVICE TELEVISION OF BUTUAN, INC.</strong>, a corporation 
+                    duly organized and existing under and by virtue of Philippine laws with principal office at N&D Bldg., Alviola Village Baan KM. Butuan City, Philippines, hereinafter referred to as <strong>FPSTI</strong>:
+                </p>
+                <br>
+                <p class="center" style="text-align: center;"><strong>AND</strong></p>
+                <br>
+                <p>
+                    I 
+                    <span class="fill-line" id="contract_name">________________</span>, 
+                    of legal age, and resident of 
+                    <span class="fill-line" id="contract_address">________________</span>hereinafter referred to as the SUBSCRIBER.
+                </p>
+                <br>
+                <p class="center" style="text-align: center;"><strong>WITNESSETH:</strong></p>
+                <br>
+                <p><strong>1.</strong> FPSTI is an entity authorized by law to build and maintain satellite receiver and cable lines in <span class="line-date" id="contract_branch">__________</span>, Agusan Del Norte, and provide the SUBSCRIBER with cable TV and internet connection.FPSTIshall not be held legally liable for any change, injury, or illegal acts that the subscribers might have caused in the use of the said services.</p>
+
+                <p><strong>2.</strong> FPSTI does not give warranty or guarantee that the cable TV and internet connection it will provide to the subscriber will be free from interruption. </p>
+
+                <p><strong>3.</strong> FPSTI exercises no control over the content of the information that would pass through FPSTI’s cable TV and internet connection facilities, thereby freeing it from any liability whatsoever in whatever form.</p>
+
+                <p><strong>4.</strong> The SUBSCRIBER agrees to pay FPSTIthe one-time installation charges, one-month deposit and other applicable basic charges and fees as agreed upon by the SUBSCRIBERin the application form that is signed. All charges and fees shall be non-refundable.The one-month deposit being non-refundable may be consumed to cover the last month of this contract, or may be made part of the Pre-Termination Fee as provided in paragraph 8 hereof.</p>
+
+                <p><strong>5.</strong> The monthly subscription fee for the cable TV and internet connection, whether individually separate or as a package, shall become due and payable without necessity of demand or billing upon the end of each billing cycle.</p>
+
+                <p><strong>6.</strong> reserves the right to increase the subscription fees and other charges upon prior notice to the subscriber. The FPSTIshall notify the subscriber 15 days prior to its implementation by posting the same in all FPSTIcollection offices. </p>
+
+                <p><strong>7.</strong> All payment of subscription fees and charges shall be made at any FPSTI collection office or by collecting agencies authorized and accredited by FPSTI.</p>
+
+                <p><strong>8.</strong> The Internet Modem that FPSTI assigns to SUBSCRIBER, once connected, is not transferrable. The right to use the Internet Modem shall not be leased, transferred or assigned to another person without a written consent and notification from FPSTI. The right to use the service is not transferrable. Accounts are for SUBSCRIBER’s use only. The cable TV and internet connection provided by FPSTIfor the SUBSCRIBER are subject to a lock-in period of three (3) years. A pre-termination fee of the equivalent in PESOS (Monthly Subscription Fee x 3 months)shall be payable by the SUBSCRIBER to FPSTI; otherwise, the billing for the monthly subscription will continue to take effect.</p>
+
+                <p><strong>9.</strong> FPSTI shall be responsible in the maintenance and repair of its cable and fiber optic lines. The SUBSCRIBER agrees that only duly authorized employees/technicians of FPSTI shall be allowed to enter the former’s premises for ocular inspection/installation/disconnection/pull-out of equipments and/or repair purposes during the reasonable hours of the day. </p>
+
+                <p><strong>10.</strong> The SUBSCRIBER agrees to grant FPSTIeasement to use an existing passage forcable TV and internet connection in the interior or neighboring premises or areas. FPSTI shall be entitled free of charge to an easement over the SUBSCRIBER’s premises for the passage of repairmen, crossing or laying of cable wire, whether aerial or underground and other connection facilities.</p>
+
+                <p><strong>11.</strong> Tampering with the INTERNET MODEM is strictly prohibited. FPSTIreserves the right to immediately suspend the service, blacklist the subscriber and confiscate the INTERNET MODEM foundtampered.</p>
+
+                <p><strong>12.</strong> Materials, equipments and accessories charged to the SUBSCRIBER are considered as FPSTIproperty during the existence and validity of the contract and even beyond the termination thereof if the SUBSCRIBER still has an outstanding or unpaid account with FPSTI.</p>
+
+                <p><strong>13.</strong> The SUBSCRIBER shall take full responsibility in safeguarding and preserving all properties of FPSTI, entrusted and installed within the premises of the SUBSCRIBER property until the same are officially turned over to the latter.</p>
+
+                <p><strong>14.</strong> The SUBSCRIBER shall be liable and responsible for any damage to FPSTI’s property, facilities and equipment entrusted to the former, caused by the negligence, misuse and abuse by the SUBSCRIBER, except through the normal wear and tear. The SUBSCRIBER shall pay corresponding charges, if any, for the necessary repair or replacement of damaged property facilities and equipment.</p>
+
+                <p><strong>15.</strong> The SUBSCRIBER is aware and cognizant of the fact that FPSTI is making use of poles owned by one or more utility companies, and that, these companies have controlling interests over the utilization of such poles. Thus, the SUBSCRIBER agrees to hold FPSTIfree from any and all claims, losses or damage that the SUBSCRIBER may incur or suffer in the event that discontinuance of the use of the said poles will transpire beyond the control of FPSTI.</p>
+
+                <p><strong>16.</strong> 16.	FPSTI shall not be responsible for any delays, interruptions, non-service which are out of bounds of its operational limits due to power failure, acts of God, acts of nature, acts of any government or supernatural authority, war or public emergency, accident, fire, lightning, riot, strikes, lock-outs, industrial disputes and failure/breakdown of SUBSCRIBER’S owned and managed network facilities.</p>
+
+                <div class="page-number">Page 1 of 2</div>
+
+            </div>
+        </div>
+
+                    <!-- PAGE 2 -->
+                    <div class="contract-page">
+                    <div class="page-inner">
+
+                        <p><strong>17.</strong> The system installed and operated by FPSTI is passive-oriented, low voltage DC-type incapable of causing any damage to the computer or television set. This system has been tested and approved by the proper government agency and its satisfactory reception is dependent on a properly functioning computer or television set to be provided and maintained by the SUBSCRIBER under his exclusive responsibility. FPSTIshall not have any responsibility whatsoever with respect to the condition, defect or performance of the SUBSCRIBER’s computer and/or television set(s) or any such other damages.</p>
+
+                        <p><strong>18.</strong> FPSTI shall have the right to automatically deactivate the INTERNET MODEM in case of:</p>
+
+                        <p style="margin-left:20px;"><strong>a.)</strong> Non-payment of one (1) month for Bundle Subscribers. (Internet and Cable), and/or effect immediate disconnection and removal of the INTERNET MODEM/ equipment/properties from the SUBSCRIBER’s premises upon non-settlement of the account FIFTEEN DAYS (15) after the grace period extended from due date;</p>
+
+                        <p style="margin-left:20px;"><strong>b.)</strong> Violation by the SUBSCRIBER of any of the foregoing provisions of this CONTRACT, subject to FPSTI’s right to collect all the unpaid dues through the proper authority or court of jurisdiction.</p>
+
+                        <p><strong>19.</strong> If disconnection and discontinuation of internet services are effected by FPSTIdue to default of bill payments on the part of the SUBSCRIBER, the latter may apply for reconnection and resumption of subscription services for the remainder of the present CONTRACT after satisfying the conditions for reconnection.</p>
+
+                        <p><strong>20.</strong> Except by expressed written waiver, any delay, neglect of forbearance of FPSTIto require or enforce any of the provisions of this CONTRACT shall not prejudice the right of FPSTIto exercise or to act strictly afterwards in accordance with the said provisions.</p>
+
+                        <p><strong>21.</strong> Any action arising from this CONTRACT shall be filed in the appropriate Trial Court in Butuan City to the exclusion of any court. The aggrieved party shall be entitled to attorney’s fees and collection expenses equivalent to 25% of the total amount due which in no case shall be less than Php 3,000.00.</p>
+
+                        <p><strong>22.</strong> This contract shall be enforced until terminated by FPSTI or by the SUBSCRIBER upon five-day (5) prior notice in writing with or without cause. All unpaid dues, arrears and monthly subscriptions for the period shall be settled by the latter prior to the effectivity of the termination.</p>
+
+                        <br>
+
+                        <p class="center"><strong>IN WITNESS WHEREOF</strong>, the parties have hereunto signed this contract.</p>
+
+                        <br><br>
+
+                        <!-- SIGNATURES -->
+                        <div style="display:flex; justify-content:space-between; margin-top:40px;">
+                            <div style="text-align:center;">
+                        <!-- SIGNATURE IMAGE -->
+                        <img id="contract_signature_img"
+                            style="max-height:70px; display:none; margin:0 auto 5px auto;">
+
+                        <!-- NAME LINE -->
+                        <span class="fill-line" id="contract_signature_name">
+                            ___________________________
+                        </span><br>
+
+                        SUBSCRIBER
+                    </div>
+
+                            <div style="text-align:center;">
+                                ___________________________<br>
+                                FPSTI REPRESENTATIVE
+                            </div>
+                        </div>
+
+                        <br><br>
+
+                        <p style="text-align: center;"><strong>Signed in the presence of:</strong></p>
+
+                        <div style="display:flex; justify-content:space-between; margin-top:20px;">
+                            <div>___________________________<br><p style="text-align: center;">Witness</p></div>
+                            <div>___________________________<br><p style="text-align: center;">Witness</p></div>
+                        </div>
+
+                        <br><br>
+
+                        <!-- ACKNOWLEDGEMENT -->
+                    <p class="center"><strong>ACKNOWLEDGEMENT</strong></p>
+
+                    <p>
+                    REPUBLIC OF THE PHILIPPINES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )<br>
+                    CITY OF BUTUAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ) SS<br>
+                    PROVINCE OF AGUSAN DEL NORTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )
+                    </p>
+
+                    <p>
+                    BEFORE ME, personally appeared this day of______in ___________, Butuan City, Philippines 
+                    the following with their evidence of identity written opposite their name below:
+                    </p>
+
+                    <br>
+
+                    <table style="width:100%; border-collapse: collapse; text-align:center;">
+                        <tr>
+                            <td style="border-bottom:1px solid #000;">Name</td>
+                            <td style="border-bottom:1px solid #000;">ID No.</td>
+                            <td style="border-bottom:1px solid #000;">Date/Place of Issue</td>
+                        </tr>
+                        <tr>
+                            <td id="ack_name" style="height:30px;"></td>
+                        <td></td>
+                        <td></td>
+                        </tr>
+                    </table>
+
+                    <br><br>
+
+                    <p>
+                    All known to me and to me known to be the same persons who executed the foregoing instrument and they acknowledged that the same is their free and voluntary act and deed. This instrument consists of two (2) pages including the page where this acknowledgement is written, signed by the parties together with their instrumental witnesses in all pages hereof.
+                    </p>
+
+                    <p>
+                    Witness my hand and seal, on the day, year and place first written above.
+                    </p>
+
+                    <br>
+
+                    <p>
+                    Doc. No. _______<br>
+                    Page No. _______<br>
+                    Book No. _______<br>
+                    Series of _______
+                    </p>
+
+                    <div class="page-number">Page 2 of 2</div>
+
+                    </div>
+                </div>
+
+                </div>
+
+                <button type="button" onclick="closeContract()" class="modal-close-btn">
+                    Close
+                </button>
+                </div>
+            </div>
+        </div>
 <!-- ================= SIGNATURE PAD MODAL ================= -->
 <div class="modal-overlay" id="signatureModal">
     <div class="modal-content modal-signature">
@@ -465,381 +875,15 @@ equipments).
         </div>
 
         <div style="margin-top:15px; display:flex; gap:10px;">
-            <button type="button" onclick="clearSignature()" class="modal-close-btn">
-                Clear
-            </button>
-
-            <button type="button" onclick="saveSignature()" class="modal-close-btn">
-                Save Signature
-            </button>
+        <button type="button" data-clear-signature class="modal-close-btn">Clear</button>
+        <button type="button" data-save-signature class="modal-close-btn">Save Signature</button>
         </div>
 
     </div>
 </div>
 
-<style>
-/* SMALLER CUSTOM MAP PIN */
 
-.map-pin{
-    width:24px;
-    height:24px;
-    background:#e60023;
-    border-radius:50% 50% 50% 0;
-    transform:rotate(-45deg);
-    position:relative;
-    box-shadow:0 3px 8px rgba(0,0,0,0.25);
-}
 
-.map-pin::after{
-    content:"";
-    width:9px;
-    height:9px;
-    background:white;
-    position:absolute;
-    top:7px;
-    left:7px;
-    border-radius:50%;
-}
-
-.pin-shadow{
-    width:7px;
-    height:7px;
-    background:#e60023;
-    border-radius:50%;
-    position:absolute;
-    top:26px;
-    left:9px;
-}
-
-.pin-drop{
-    animation:pinDrop 0.35s ease-out;
-}
-
-@keyframes pinDrop{
-    0%{
-        transform:translateY(-120px) rotate(-45deg);
-        opacity:0;
-    }
-    70%{
-        transform:translateY(8px) rotate(-45deg);
-    }
-    100%{
-        transform:translateY(0) rotate(-45deg);
-        opacity:1;
-    }
-}
-</style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script>
-
-    
-// ================= OTHER INDUSTRY =================
-function toggleOtherIndustry(select) {
-    const box = document.getElementById("otherIndustryBox");
-    box.style.display = select.value === "Others" ? "flex" : "none";
-}
-
-// ================= DECLARATION MODAL =================
-function openDeclaration() {
-    document.getElementById("declarationModal").classList.add("active");
-}
-function closeDeclaration() {
-    document.getElementById("declarationModal").classList.remove("active");
-}
-
-// ================= SIGNATURE PAD =================
-let canvas;
-let ctx;
-let drawing = false;
-
-function initSignaturePad() {
-    canvas = document.getElementById("signatureCanvas");
-    ctx = canvas.getContext("2d");
-
-    setTimeout(()=>{
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
-        ctx.lineWidth = 2;
-        ctx.lineCap = "round";
-        ctx.strokeStyle = "#000";
-    },100);
-}
-
-function getPosition(e) {
-    const rect = canvas.getBoundingClientRect();
-    return {
-        x:(e.clientX||e.touches[0].clientX)-rect.left,
-        y:(e.clientY||e.touches[0].clientY)-rect.top
-    };
-}
-
-function startDraw(e){
-    e.preventDefault();
-    drawing=true;
-    const pos=getPosition(e);
-    ctx.beginPath();
-    ctx.moveTo(pos.x,pos.y);
-}
-
-function draw(e){
-    if(!drawing) return;
-    e.preventDefault();
-    const pos=getPosition(e);
-    ctx.lineTo(pos.x,pos.y);
-    ctx.stroke();
-}
-
-function endDraw(){ drawing=false; }
-
-function clearSignature(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-}
-
-function saveSignature(){
-
-    const dataURL = canvas.toDataURL("image/png");
-
-    document.getElementById("digitalSignatureInput").value = dataURL;
-
-    // SHOW PREVIEW
-    const preview = document.getElementById("signaturePreview");
-    const placeholder = document.getElementById("signaturePlaceholder");
-
-    preview.src = dataURL;
-    preview.style.display = "block";
-    placeholder.style.display = "none";
-
-    closeSignaturePad();
-}
-
-function openSignaturePad(){
-    document.getElementById("signatureModal").classList.add("active");
-    initSignaturePad();
-
-    canvas.addEventListener("mousedown",startDraw);
-    canvas.addEventListener("mousemove",draw);
-    canvas.addEventListener("mouseup",endDraw);
-    canvas.addEventListener("mouseleave",endDraw);
-
-    canvas.addEventListener("touchstart",startDraw);
-    canvas.addEventListener("touchmove",draw);
-    canvas.addEventListener("touchend",endDraw);
-}
-
-function closeSignaturePad(){
-    document.getElementById("signatureModal").classList.remove("active");
-}
-
-// ================= MAP =================
-
-let map;
-let marker;
-
-const modernIcon = L.divIcon({
-    className:'',
-    html:`
-        <div style="position:relative">
-            <div class="map-pin"></div>
-            <div class="pin-shadow"></div>
-        </div>
-    `,
-    iconSize:[24,32],
-    iconAnchor:[12,30]
-});
-
-function initMap(){
-
-const defaultLat = 12.0665;
-const defaultLng = 124.5965;
-
-map = L.map('map',{
-    zoomControl:true
-}).setView([defaultLat, defaultLng],15);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-    maxZoom:19
-}).addTo(map);
-
-
-// ================= FIXED CENTER MARKER =================
-
-marker = L.marker(map.getCenter(),{
-    icon: modernIcon,
-    interactive:false
-}).addTo(map);
-
-// ================= MARKER ANIMATION FUNCTION =================
-
-function animatePin(){
-
-    const el = marker.getElement();
-    if(!el) return;
-
-    const pin = el.querySelector(".map-pin");
-
-    pin.classList.remove("pin-drop");
-
-    void pin.offsetWidth; // restart animation
-
-    pin.classList.add("pin-drop");
-
-}
-
-setTimeout(()=>{
-    animatePin();
-},200);
-
-
-
-// SAVE INITIAL COORDINATES
-
-document.getElementById("latitude").value = defaultLat;
-document.getElementById("longitude").value = defaultLng;
-
-
-// ================= WHEN MAP MOVES =================
-
-map.on("move",function(){
-
-    const center = map.getCenter();
-
-    marker.setLatLng(center);
-
-    document.getElementById("latitude").value = center.lat;
-    document.getElementById("longitude").value = center.lng;
-
-});
-
-map.on("moveend",function(){
-
-    animatePin();
-
-});
-
-}
-
-// ================= FILE UPLOAD DISPLAY =================
-document.querySelectorAll('.file-input').forEach(input => {
-
-    input.addEventListener('change', function () {
-
-        const file = this.files[0];
-        const uploadBox = this.closest('.upload-box');
-
-        if (!uploadBox) return;
-
-        let fileNameDiv = uploadBox.querySelector('.file-name');
-
-        // auto-create if missing (extra safe)
-        if (!fileNameDiv) {
-            fileNameDiv = document.createElement('div');
-            fileNameDiv.className = 'file-name';
-            uploadBox.appendChild(fileNameDiv);
-        }
-
-        if (!file) {
-            fileNameDiv.textContent = "No file chosen";
-            uploadBox.classList.remove('has-file');
-            return;
-        }
-
-        fileNameDiv.textContent = file.name;
-        uploadBox.classList.add('has-file');
-
-    });
-
-});
-
-// ================= LOAD MAP =================
-
-window.addEventListener("load",initMap);
-
-
-
-// ================= GPS LOCATION =================
-
-function getUserLocation(){
-
-if(navigator.geolocation){
-
-navigator.geolocation.getCurrentPosition(function(position){
-
-const lat = position.coords.latitude;
-const lng = position.coords.longitude;
-
-map.setView([lat,lng],17);
-
-marker.setLatLng([lat,lng]);
-
-animateMarker();
-
-document.getElementById("latitude").value = lat;
-document.getElementById("longitude").value = lng;
-
-},function(){
-
-alert("Unable to detect your location.");
-
-});
-
-}else{
-
-alert("Geolocation not supported by this browser.");
-
-}
-
-}
-
-// ================= DECLARATION CHECK =================
-const declarationCheckbox=document.getElementById("declarationCheck");
-const submitBtn=document.getElementById("submitBtn");
-
-declarationCheckbox.addEventListener("change",function(){
-    if(this.checked){
-        submitBtn.disabled=false;
-        submitBtn.style.background="#003366";
-        submitBtn.style.cursor="pointer";
-    } else {
-        submitBtn.disabled=true;
-        submitBtn.style.background="#999";
-        submitBtn.style.cursor="not-allowed";
-    }
-});
-
-// ================= FORM SUBMIT =================
-const form = document.querySelector("form");
-
-form.addEventListener("submit", function(e){
-
-    e.preventDefault();
-
-    // ensure map tiles are loaded
-    map.whenReady(function(){
-
-        setTimeout(function(){
-
-            html2canvas(document.querySelector("#map"),{
-                useCORS:true,
-                allowTaint:true,
-                scale:2
-            }).then(canvas => {
-
-                const mapImage = canvas.toDataURL("image/png");
-
-                document.getElementById("mapImage").value = mapImage;
-
-                form.submit();
-
-            });
-
-        },500); // wait for tiles
-
-    });
-
-});
-
-
-</script>
 
 @include('layouts.footer') 
 

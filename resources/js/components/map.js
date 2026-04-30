@@ -11,8 +11,8 @@ export function initMap() {
     const mapEl = document.getElementById("map");
     if (!mapEl) return null;
 
-    const defaultLat = 8.953122657681542;
-    const defaultLng = 125.58875092883581;
+    const defaultLat = 8.953069667099157;
+    const defaultLng = 125.5887294711642;
 
     map = L.map('map', {
         zoomControl: true

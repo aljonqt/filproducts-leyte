@@ -1,7 +1,7 @@
 @extends('layouts.navbar')
 
 @section('content')
-<link rel="stylesheet" href="{{ asset('public/css/news.css') }}">
+<link rel="stylesheet" href="{{ asset('css/news.css') }}">
 
 <section class="news-page">
     <div class="news-container">
@@ -9,13 +9,13 @@
         <div class="news-header">
             <span class="news-badge">Announcements</span>
             <h1>Latest News & Updates</h1>
-            <p>Stay connected with the evolving fiber landscape of Fil Products Eastern Visayas.</p>
+            <p>Stay connected with the evolving fiber landscape of Fil Products Leyte</p>
         </div>
 
         <div class="news-list">
             <article class="news-card">
                 <div class="news-image-wrapper">
-                    <img src="{{ asset('public/images/customersupport.png') }}" alt="Customer Support Portal" class="news-image">
+                    <img src="{{ asset('images/customersupport.png') }}" alt="Customer Support Portal" class="news-image">
                     <span class="news-date">New Platform</span>
                 </div>
                 <div class="news-content">

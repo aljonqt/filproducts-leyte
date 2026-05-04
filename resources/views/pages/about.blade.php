@@ -15,7 +15,7 @@
 
 <h1>About Fil Products</h1>
 
-<p>Delivering reliable internet and cable television services across Butuan .</p>
+<p>Delivering reliable internet and cable television services across Leyte .</p>
 
 </div>
 
@@ -24,11 +24,11 @@
 
 <div class="about-text">
 
-<h2>FIL PRODUCTS BUTUAN.</h2>
+<h2>FIL PRODUCTS LEYTE.</h2>
 
 <p>
-Fil Products Butuan, is a trusted provider of
-high-speed internet and cable television services in Butuan . We are committed
+Fil Products Leyte, is a trusted provider of
+high-speed internet and cable television services in Leyte . We are committed
 to delivering reliable connectivity, modern technology, and exceptional
 customer service to homes, businesses, and communities.
 </p>
@@ -70,7 +70,7 @@ experience.
 <h3>Our Vision</h3>
 
 <p>
-To become the leading connectivity provider in Butuan  by delivering
+To become the leading connectivity provider in Leyte  by delivering
 innovative digital services and empowering communities through technology.
 </p>
 

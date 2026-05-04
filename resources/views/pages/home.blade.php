@@ -16,7 +16,7 @@
         <div class="hero-content">
             <div class="badge-wrapper">
                 <span class="status-indicator animate-pulse"></span>
-                <span class="hero-badge">Fiber & Cable TV now live in Butuan</span>
+                <span class="hero-badge">Fiber & Cable TV now live in Leyte</span>
             </div>
 
             <h1 class="hero-title">
@@ -25,7 +25,7 @@
             </h1>
 
             <p class="hero-description">
-                Unleash the full potential of your home and business with Butuan's most reliable network. High-speed internet meets premium entertainment.
+                Unleash the full potential of your home and business with Leyte's most reliable network. High-speed internet meets premium entertainment.
             </p>
 
             <div class="hero-actions">
@@ -81,7 +81,7 @@
             <span class="pill-badge">Our Advantages</span>
             <h2>Why Choose Fil Products?</h2>
             <p class="section-sub">
-                Reliable Internet and Cable TV built for homes and businesses in Butuan.
+                Reliable Internet and Cable TV built for homes and businesses in Leyte.
             </p>
         </div>
 
@@ -115,7 +115,7 @@
                 </div>
                 <div class="card-content">
                     <h3>Enterprise Grade</h3>
-                    <p>Custom-tailored dedicated bandwidth and static IP solutions for Butuan's growing businesses.</p>
+                    <p>Custom-tailored dedicated bandwidth and static IP solutions for Leyte's growing businesses.</p>
                 </div>
             </div>
 
@@ -126,7 +126,7 @@
                 </div>
                 <div class="card-content">
                     <h3>24/7 Local Care</h3>
-                    <p>No more robot voices. Speak directly to our Butuan-based team whenever you need help.</p>
+                    <p>No more robot voices. Speak directly to our Leyte-based team whenever you need help.</p>
                 </div>
             </div>
         </div>

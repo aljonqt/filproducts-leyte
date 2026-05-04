@@ -98,9 +98,8 @@ public function submitComplaint(Request $request)
         $mail = new PHPMailer(true);
         $this->configureSMTP($mail);
 
-        $mail->setFrom(env('MAIL_USERNAME'), 'Fil Products Butuan');
-        $mail->addAddress('Info.bxu@filproducts.ph');
-        $mail->addAddress('it.butuan@filproducts.ph');
+        $mail->setFrom(env('MAIL_USERNAME'), 'Fil Products Leyte');
+        $mail->addAddress('info.leyte@filproducts.ph');
         $mail->addReplyTo($email, $name);
 
         $mail->isHTML(true);
@@ -152,7 +151,7 @@ public function submitComplaint(Request $request)
         $mailCustomer = new PHPMailer(true);
         $this->configureSMTP($mailCustomer);
 
-        $mailCustomer->setFrom(env('MAIL_USERNAME'), 'Fil Products Butuan');
+        $mailCustomer->setFrom(env('MAIL_USERNAME'), 'Fil Products Leyte');
         $mailCustomer->addAddress($email);
 
         $mailCustomer->isHTML(true);
@@ -165,7 +164,7 @@ public function submitComplaint(Request $request)
 
             <p>Dear <strong>{$name}</strong>,</p>
 
-            <p>Thank you for contacting <strong>Fil Products Butuan</strong>.</p>
+            <p>Thank you for contacting <strong>Fil Products Leyte</strong>.</p>
 
             <p>We have successfully received your complaint. Our team will review it and get back to you as soon as possible.</p>
 
@@ -236,17 +235,17 @@ $request->validate([
     }
 
     /* ================= BRANCH LOGIC ================= */
-    $branch = 'butuan';
+    $branch = 'leyte';
 
     $branches = [
-        'butuan' => [
+        'leyte' => [
             'name' => 'FIL PRODUCTS SERVICE TELEVISION, INC.',
-            'address' => 'N&D Bldg., Alviola Village Baan KM., Butuan City',
-            'contact' => '0917-320-5871 / 0938-320-5871'
+            'address' => 'City Center Park Real St., Brgy Aslum, Tacloban City, Leyte',
+            'contact' => '0995-415-1821'
         ],
     ];
 
-    $branchData = $branches['butuan'];
+    $branchData = $branches['leyte'];
 
     $companyName = $request->companyname;
     $natureBiz   = $request->natureofbusiness;
@@ -322,7 +321,7 @@ $pdf->Cell(216, 7, $branchData['name'], 0, 1, 'C');
 $pdf->SetFont('helvetica', '', 10);
 $pdf->Cell(0, 5, strtoupper($branchData['address']), 0, 1, 'C');
 $pdf->Cell(0, 5, 'CEL. NOS.: ' . $branchData['contact'], 0, 1, 'C');
-$pdf->Cell(0,5,'Email: Info.bxu@filproducts.ph | Website: www.butuan.filproducts-cyg.com',0,1,'C');
+$pdf->Cell(0,5,'Email: info.leyte@filproducts.ph | Website: www.leyte.filproducts-cyg.com',0,1,'C');
 
 $pdf->Ln(15);
 
@@ -499,69 +498,68 @@ $pdf->SetFont('helvetica', '', 10);
 $pdf->Cell(0, 6, 'Signature Over Printed Nmae/Date', 0, 1, 'C');
 
 
-
 /* ================= PAGE 2 ================= */
-            $pdf->AddPage();
-            /* DECLARATION */
-            $pdf->SetFont('helvetica', 'B', 11);
-            $pdf->Cell(0, 6, 'SUBSCRIBER\'S DECLARATIONS', 0, 1);
+$pdf->AddPage(); 
 
-            $pdf->SetFont('helvetica', '', 9);
+/* DECLARATION */
+$pdf->SetFont('helvetica', 'B', 11);
+$pdf->Cell(0, 6, 'SUBSCRIBER\'S DECLARATIONS', 0, 1);
 
-            $declaration = "
-            1. I hereby confirm that the foregoing information is true and correct, that supporting documents attached hereto are
-            genuine and authentic, and that I voluntarily submitted the said information and documents for the purpose of facilitating my
-            application to the Service.
+$pdf->SetFont('helvetica', '', 9);
 
-            2. I hereby further confirm that I applied for and, once my application is approved, that I have voluntarily availed of the
-            plans, products and/or services chosen by me in this application form, as well as the inclusions and special features of such
-            plans, products and/or services and that any enrolment I have indicated herein have been knowingly made by me.
+$declaration = "
+    1. I hereby confirm that the foregoing information is true and correct, that supporting documents attached hereto are
+    genuine and authentic, and that I voluntarily submitted the said information and documents for the purpose of facilitating my
+    application to the Service.
 
-            3. I hereby authorize FIL PRODUCTS SERVICE TELEVISION OF BUTUAN, INC. (hereinafter you) or any person or
-            entity authorized by you, to verify any information about me and/or documents available from whatever source including but
-            not limited to (i) your subsidiaries, affiliates, and/or their service providers: or (ii) banks, credit card companies, and other
-            lending and/or financial institution, and I hereby authorize the holder, controller and processor of such information and/or
-            document, has the same is defined in Republic Act No. 10173 (otherwise known as Data Privacy Act of 2012), or any
-            amendment or modification of the same, to conform, release and verify the existence, truthfulness, and/or accuracy of such
-            information and/or document.
-            
-            4. I give you permission to use, disclose and share with your business partners, subsidiaries and affiliates (and their
-            business partners) information contained in this application about me and my subscription, my network and connections, my
-            service usage and payment patterns, information about the device and equipment I use to access you service, websites
-            and app used in your services, information from your third party partners and advertisers, including any data or analytics
-            derived therefrom, in whatever form (hereinafter Personal Information), for the following purposes: processing any
-            application or request for availment of any product and/or service which they offer, improving your/ their products and
-            services, credit investigation and scoring, advertising and promoting new products and services, to the end of improving my
-            and/or the public's customer experience.
+    2. I hereby further confirm that I applied for and, once my application is approved, that I have voluntarily availed of the
+    plans, products and/or services chosen by me in this application form, as well as the inclusions and special features of such
+    plans, products and/or services and that any enrolment I have indicated herein have been knowingly made by me.
 
-            5. I consent to your business partners', subsidiaries' and affiliates' (and their business partners') disclosure to you of any
-            Personal Information in their possession to achieve any of the purposes stated above.
+    3. I hereby authorize SURIGAO CABLE TELEVISION INC. (hereinafter you) or any person or
+    entity authorized by you, to verify any information about me and/or documents available from whatever source including but
+    not limited to (i) your subsidiaries, affiliates, and/or their service providers: or (ii) banks, credit card companies, and other
+    lending and/or financial institution, and I hereby authorize the holder, controller and processor of such information and/or
+    document, has the same is defined in Republic Act No. 10173 (otherwise known as Data Privacy Act of 2012), or any
+    amendment or modification of the same, to conform, release and verify the existence, truthfulness, and/or accuracy of such
+    information and/or document.
+    
+    4. I give you permission to use, disclose and share with your business partners, subsidiaries and affiliates (and their
+    business partners) information contained in this application about me and my subscription, my network and connections, my
+    service usage and payment patterns, information about the device and equipment I use to access you service, websites
+    and app used in your services, information from your third party partners and advertisers, including any data or analytics
+    derived therefrom, in whatever form (hereinafter Personal Information), for the following purposes: processing any
+    application or request for availment of any product and/or service which they offer, improving your/ their products and
+    services, credit investigation and scoring, advertising and promoting new products and services, to the end of improving my
+    and/or the public's customer experience.
 
-            6. I hereby likewise authorize you, your business partners, subsidiaries and affiliates, to send me SMS alerts or any
-            communication, advertisement or promotional material pertaining to any new or current product and/or service offered by
-            you, your business partners, subsidiaries and affiliates
+    5. I consent to your business partners', subsidiaries' and affiliates' (and their business partners') disclosure to you of any
+    Personal Information in their possession to achieve any of the purposes stated above.
 
-            7. I acknowledge and agree to the Holding Period for the relevant service availed of. If I choose to downgrade my plan,
-            transfer and rights or obligations of my subscription or pre-terminate or cancel my subscription within the Holding Period
-            then I agree to pay the relevant fees, charges and penalties imposed by you.
+    6. I hereby likewise authorize you, your business partners, subsidiaries and affiliates, to send me SMS alerts or any
+    communication, advertisement or promotional material pertaining to any new or current product and/or service offered by
+    you, your business partners, subsidiaries and affiliates
 
-            8. I am aware of the fees, rates and charges relevant of the service availed of and I agree to pay the same within the due
-            dates. I understand that I will be subject to, and hereby agree and undertake, interest and penalties for late payment or 
-            non-payment stated in the terms and condition.
+    7. I acknowledge and agree to the Holding Period for the relevant service availed of. If I choose to downgrade my plan,
+    transfer and rights or obligations of my subscription or pre-terminate or cancel my subscription within the Holding Period
+    then I agree to pay the relevant fees, charges and penalties imposed by you.
 
-            9. I hereby confirm that I have read and understood the Terms and Conditions of our Subscription Agreement and that I
-            shall strictly comply and abide by these terms and conditions and any future amendments thereto.
+    8. I am aware of the fees, rates and charges relevant of the service availed of and I agree to pay the same within the due
+    dates. I understand that I will be subject to, and hereby agree and undertake, interest and penalties for late payment or non-payment stated in the terms and condition.
 
-            10. I agree that this Subscription Agreement shall govern our relationship for the service currently availed of and the service
-            I will avail of in the future.
+    9. I hereby confirm that I have read and understood the Terms and Conditions of our Subscription Agreement and that I
+    shall strictly comply and abide by these terms and conditions and any future amendments thereto.
 
-            11. I agree to pay my application's cancellation fee equivalent to 20% of application charges (Deposit, Installation fee and
-            equipments).
-        ";
+    10. I agree that this Subscription Agreement shall govern our relationship for the service currently availed of and the service
+    I will avail of in the future.
 
-            $pdf->MultiCell(0, 5, $declaration);
+    11. I agree to pay my application's cancellation fee equivalent to 20% of application charges (Deposit, Installation fee and
+    equipments).
+";
 
-            $pdf->Ln(10);
+$pdf->MultiCell(0, 5, $declaration);
+
+$pdf->Ln(10);
 
 
 /* ================= REUSE SAVED SIGNATURE ================= */
@@ -663,7 +661,7 @@ if(!empty($request->map_image)){
             );
 
             /* BRANCH FORMAT */
-            $branchText = 'Butuan City';
+            $branchText = 'Tacloban City';
 
             $branchText = $branchMap[$request->branch] ?? $request->branch;
 
@@ -672,8 +670,8 @@ if(!empty($request->map_image)){
         KNOW ALL MEN BY THESE PRESENTS:
 
         This CONTRACT SUBSCRIPTION is made and entered into this day of {$day} of {$month}, {$year}
-        by and between FIL PRODUCTS SERVICE TELEVISION OF BUTUAN, INC., a corporation duly organized and existing under and 
-        by virtue of Philippine laws with principal office at N&D Bldg., Alviola Village Baan KM. Butuan City, Philippines, hereinafter referred to as FPSTI:
+        by and between FIL PRODUCTS SERVICE TELEVISION OF LEYTE, INC., a corporation duly organized and existing under and 
+        by virtue of Philippine laws with principal office at City Center Park Real St., Brgy Aslum, Tacloban City, Leyte, Philippines, hereinafter referred to as FPSTI:
 
                                                                 AND
 
@@ -779,13 +777,13 @@ if(!empty($request->map_image)){
         20. Except by expressed written waiver, any delay, neglect or forbearance of FPSTI to require or enforce any of the provisions of this CONTRACT shall 
         not prejudice the right of FPSTI to exercise or to act strictly afterwards in accordance with the said provisions.
 
-        21. Any action arising from this CONTRACT shall be filed in the appropriate Trial Court in Butuan City to the exclusion of any court. The aggrieved 
+        21. Any action arising from this CONTRACT shall be filed in the appropriate Trial Court in Tacloban City to the exclusion of any court. The aggrieved 
         party shall be entitled to attorney’s fees and collection expenses equivalent to 25% of the total amount due which in no case shall be less than Php 3,000.00.
 
         22. This contract shall be enforced until terminated by FPSTI or by the SUBSCRIBER upon five-day (5) prior notice in writing with or without cause. 
         All unpaid dues, arrears and monthly subscriptions for the period shall be settled by the latter prior to the effectivity of the termination.
 
-            IN WITNESS THEREOF, the parties hereto have hereunto signed this contract the day of year first above-written at N&D Bldg., Alviola Village Baan KM. Butuan City, Philippines.
+            IN WITNESS THEREOF, the parties hereto have hereunto signed this contract the day of year first above-written at City Center Park Real St., Brgy Aslum, Tacloban City, Leyte, Philippines.
             ",
                 0,
                 'J',
@@ -851,7 +849,7 @@ if(!empty($request->map_image)){
 
             /* LEFT HEADER */
             $pdf->Cell(0,5,'REPUBLIC OF THE PHILIPPINES )',0,1);
-            $pdf->Cell(0,5,'CITY OF BUTUAN           ) SS',0,1);
+            $pdf->Cell(0,5,'CITY OF LEYTE           ) SS',0,1);
             $pdf->Cell(0,5,'PROVINCE OF AGUSAN DEL NORTE         )',0,1);
 
             $pdf->Ln(3);
@@ -864,7 +862,7 @@ if(!empty($request->map_image)){
 
             /* INTRO */
             $pdf->MultiCell(0,5,"
-            BEFORE ME, personally appeared this _________ in _________, Butuan City, Philippines, the following with their evidence of identity written opposite their name below:
+            BEFORE ME, personally appeared this _________ in _________, Tacloban City, Philippines, the following with their evidence of identity written opposite their name below:
             ");
 
             $pdf->Ln(3);
@@ -940,7 +938,7 @@ file_put_contents($pdfPath,$pdfContent);
    BRANCH EMAIL MAP
 ========================== */
 $branchEmails = [
-    'butuan' => 'Info.bxu@filproducts.ph',
+    'leyte' => 'info.leyte@filproducts.ph',
 ];
 
 /* =========================
@@ -958,7 +956,7 @@ $subscription = htmlspecialchars($subscription ?? '');
 /* =========================
    DETERMINE RECIPIENT
 ========================== */
-$branchRecipient = $branchEmails[$selectedBranch] ?? 'Info.bxu@filproducts.ph';
+$branchRecipient = $branchEmails[$selectedBranch] ?? 'info.leyte@filproducts.ph';
 
 /* =========================
    SEND EMAIL
@@ -978,7 +976,7 @@ $mail->SMTPOptions = [
 ];
 
 /* FROM */
-$mail->setFrom(env('MAIL_USERNAME'), 'Fil Products Butuan');
+$mail->setFrom(env('MAIL_USERNAME'), 'Fil Products Leyte');
 
 /* HEADERS */
 $mail->Sender = env('MAIL_USERNAME');
@@ -997,8 +995,7 @@ if (!empty($email)) {
 /* ✅ SEND TO BRANCH */
 $mail->addAddress($branchRecipient);
 
-$mail->addAddress('Info.bxu@filproducts.ph');
-$mail->addAddress('it.butuan@filproducts.ph');
+$mail->addAddress('info.leyte@filproducts.ph');
 
 
 /* =========================
@@ -1051,7 +1048,7 @@ $mail->Body = "
 ========================== */
 
 // ONLY attach for admin email
-$mail->addAddress('Info.bxu@filproducts.ph');
+$mail->addAddress('info.leyte@filproducts.ph');
 
 // Attach PDF (optional: keep or remove if large)
 if (!empty($pdfContent) && !empty($fileName)) {
@@ -1090,7 +1087,7 @@ $mail->send();
 $mailCustomer = new PHPMailer(true);
 $this->configureSMTP($mailCustomer);
 
-$mailCustomer->setFrom(env('MAIL_USERNAME'), 'Fil Products Butuan');
+$mailCustomer->setFrom(env('MAIL_USERNAME'), 'Fil Products Leyte');
 $mailCustomer->addAddress($email);
 
 $mailCustomer->isHTML(true);
@@ -1135,17 +1132,17 @@ public function submitFilbizUpgrade(Request $request)
     }
 
     /* ================= BRANCH LOGIC ================= */
-    $branch = 'butuan';
+    $branch = 'leyte';
 
     $branches = [
-            'butuan' => [
+            'leyte' => [
                 'name' => 'FIL PRODUCTS SERVICE TELEVISION, INC.',
-                'address' => 'N&D Bldg., Alviola Village Baan KM., Butuan City',
+                'address' => 'City Center Park Real St., Brgy Aslum, Tacloban City, Leyte',
                 'contact' => '0917-320-5871 / 0938-320-5871'
             ],
         ];
 
-    $branchData = $branches['butuan'];
+    $branchData = $branches['leyte'];
 
     $companyName = $request->companyname;
     $natureBiz   = $request->natureofbusiness;
@@ -1197,7 +1194,7 @@ $pdf->Cell(216, 7, $branchData['name'], 0, 1, 'C');
 $pdf->SetFont('helvetica', '', 10);
 $pdf->Cell(0, 5, strtoupper($branchData['address']), 0, 1, 'C');
 $pdf->Cell(0, 5, 'CEL. NOS.: ' . $branchData['contact'], 0, 1, 'C');
-$pdf->Cell(0,5,'Email: Info.bxu@filproducts.ph | Website: www.butuan.filproducts-cyg.com',0,1,'C');
+$pdf->Cell(0,5,'Email: info.leyte@filproducts.ph | Website: www.leyte.filproducts-cyg.com',0,1,'C');
 $pdf->Ln(15);
 
 
@@ -1396,7 +1393,7 @@ $pdf->Cell(0, 6, 'Signature Over Printed Nmae/Date', 0, 1, 'C');
             plans, products and/or services chosen by me in this application form, as well as the inclusions and special features of such
             plans, products and/or services and that any enrolment I have indicated herein have been knowingly made by me.
 
-            3. I hereby authorize FIL PRODUCTS SERVICE TELEVISION OF BUTUAN, INC. (hereinafter you) or any person or
+            3. I hereby authorize FIL PRODUCTS SERVICE TELEVISION OF LEYTE, INC. (hereinafter you) or any person or
             entity authorized by you, to verify any information about me and/or documents available from whatever source including but
             not limited to (i) your subsidiaries, affiliates, and/or their service providers: or (ii) banks, credit card companies, and other
             lending and/or financial institution, and I hereby authorize the holder, controller and processor of such information and/or
@@ -1512,10 +1509,10 @@ file_put_contents($pdfPath,$pdfContent);
 
 
 /* =========================
-   FIXED BRANCH (BUTUAN ONLY)
+   FIXED BRANCH (LEYTE ONLY)
 ========================== */
-$branch = 'Butuan';
-$branchRecipient = 'Info.bxu@filproducts.ph';
+$branch = 'Leyte';
+$branchRecipient = 'info.leyte@filproducts.ph';
 
 /* =========================
    SANITIZE INPUT
@@ -1544,7 +1541,7 @@ $mail->SMTPOptions = [
 ];
 
 /* FROM */
-$mail->setFrom(env('MAIL_USERNAME'), 'Fil Products Butuan');
+$mail->setFrom(env('MAIL_USERNAME'), 'Fil Products Leyte');
 
 /* HEADERS */
 $mail->Sender = env('MAIL_USERNAME');
@@ -1555,8 +1552,7 @@ $mail->addCustomHeader('X-Mailer', 'PHP/' . phpversion());
 ========================== */
 
 // ✅ Send same formatted email to internal team
-$mail->addAddress('Info.bxu@filproducts.ph');
-$mail->addAddress('it.butuan@filproducts.ph');
+$mail->addAddress('info.leyte@filproducts.ph');
 
 // Optional: reply goes to customer
 if (!empty($email)) {
@@ -1636,7 +1632,7 @@ $mail->send();
 $mailCustomer = new PHPMailer(true);
 $this->configureSMTP($mailCustomer);
 
-$mailCustomer->setFrom(env('MAIL_USERNAME'), 'Fil Products Butuan');
+$mailCustomer->setFrom(env('MAIL_USERNAME'), 'Fil Products Leyte');
 $mailCustomer->addAddress($email);
 
 $mailCustomer->isHTML(true);
@@ -1647,10 +1643,10 @@ $mailCustomer->Body = "
 <p>Thank you {$companyName},</p>
 
 <p>Your Filbiz upgrade request has been successfully submitted.</p>
-<p>Our Butuan team will review your request and contact you shortly.</p>
+<p>Our Leyte team will review your request and contact you shortly.</p>
 
 <br>
-<p>Fil Products Butuan</p>
+<p>Fil Products Leyte</p>
 ";
 
 $mailCustomer->send();
@@ -1663,7 +1659,7 @@ return redirect()
     ->with('success', '
     ✅ Your Filbiz Upgrade request has been successfully submitted.<br>
     📧 A copy has been sent to your email.<br>
-    Our Butuan team will contact you shortly.
+    Our Leyte team will contact you shortly.
     ');
 }
 
@@ -1675,17 +1671,17 @@ public function submitResidential(Request $request)
     if (!$request->declaration_agree) {
         return back()->with('error','You must agree to the Subscriber Declaration');
     }
-        $branch = 'butuan';
+        $branch = 'leyte';
 
         $branches = [
-        'butuan' => [
+        'leyte' => [
             'name' => 'FIL PRODUCTS SERVICE TELEVISION, INC.',
-            'address' => 'N&D Bldg., Alviola Village Baan KM., Butuan City',
-            'contact' => '0917-320-5871 / 0938-320-5871'
+            'address' => 'City Center Park Real St., Brgy Aslum, Tacloban City, Leyte',
+            'contact' => '0995-415-1821'
         ],
     ];
 
-    $branchData = $branches['butuan'];
+    $branchData = $branches['leyte'];
 
     try {
         
@@ -1812,7 +1808,7 @@ $pdf->Cell(216, 7, $branchData['name'], 0, 1, 'C');
 $pdf->SetFont('helvetica','',10);
 $pdf->Cell(0, 5, strtoupper($branchData['address']), 0, 1, 'C');
 $pdf->Cell(0, 5, 'CEL. NOS.: ' . $branchData['contact'], 0, 1, 'C');
-$pdf->Cell(0,5,'Email: Info.bxu@filproducts.ph | Website: www.butuan.filproducts-cyg.com',0,1,'C');
+$pdf->Cell(0,5,'Email: info.leyte@filproducts.ph | Website: www.leyte.filproducts-cyg.com',0,1,'C');
 $pdf->Ln(4);
 
 /* ================= APPLICATION FORM ================= */
@@ -2001,7 +1997,7 @@ $pdf->Cell(0,6,"Draw a Sketch at the back >>>>",0,1,'R');
             plans, products and/or services chosen by me in this application form, as well as the inclusions and special features of such
             plans, products and/or services and that any enrolment I have indicated herein have been knowingly made by me.
 
-            3. I hereby authorize FIL PRODUCTS SERVICE TELEVISION OF BUTUAN, INC. (hereinafter you) or any person or
+            3. I hereby authorize FIL PRODUCTS SERVICE TELEVISION OF LEYTE, INC. (hereinafter you) or any person or
             entity authorized by you, to verify any information about me and/or documents available from whatever source including but
             not limited to (i) your subsidiaries, affiliates, and/or their service providers: or (ii) banks, credit card companies, and other
             lending and/or financial institution, and I hereby authorize the holder, controller and processor of such information and/or
@@ -2188,7 +2184,7 @@ $pdf->SetTextColor(0,0,0);
             );
 
             /* BRANCH FORMAT */
-            $branchText = 'Butuan City';
+            $branchText = 'Tacloban City';
 
             $branchText = $branchMap[$request->branch] ?? $request->branch;
 
@@ -2197,7 +2193,7 @@ $pdf->SetTextColor(0,0,0);
             KNOW ALL MEN BY THESE PRESENTS:
 
             This CONTRACT SUBSCRIPTION is made and entered into this day of {$day} of {$month}, {$year}
-            by and between FIL PRODUCTS SERVICE TELEVISION OF BUTUAN, INC., a corporation duly organized and existing under and by virtue of Philippine laws with principal office at N&D Bldg., Alviola Village Baan KM. Butuan City, Philippines, hereinafter referred to as FPSTI:
+            by and between FIL PRODUCTS SERVICE TELEVISION OF LEYTE, INC., a corporation duly organized and existing under and by virtue of Philippine laws with principal office at City Center Park Real St., Brgy Aslum, Tacloban City, Leyte, Philippines, hereinafter referred to as FPSTI:
 
             AND
 
@@ -2264,11 +2260,11 @@ $pdf->SetTextColor(0,0,0);
 
             20. Except by expressed written waiver, any delay, neglect or forbearance of FPSTI to require or enforce any of the provisions of this CONTRACT shall not prejudice the right of FPSTI to exercise or to act strictly afterwards in accordance with the said provisions.
 
-            21. Any action arising from this CONTRACT shall be filed in the appropriate Trial Court in Butuan City to the exclusion of any court. The aggrieved party shall be entitled to attorney’s fees and collection expenses equivalent to 25% of the total amount due which in no case shall be less than Php 3,000.00.
+            21. Any action arising from this CONTRACT shall be filed in the appropriate Trial Court in Tacloban City to the exclusion of any court. The aggrieved party shall be entitled to attorney’s fees and collection expenses equivalent to 25% of the total amount due which in no case shall be less than Php 3,000.00.
 
             22. This contract shall be enforced until terminated by FPSTI or by the SUBSCRIBER upon five-day (5) prior notice in writing with or without cause. All unpaid dues, arrears and monthly subscriptions for the period shall be settled by the latter prior to the effectivity of the termination.
 
-            IN WITNESS THEREOF, the parties hereto have hereunto signed this contract the day of year first above-written at N&D Bldg., Alviola Village Baan KM. Butuan City, Philippines.
+            IN WITNESS THEREOF, the parties hereto have hereunto signed this contract the day of year first above-written at City Center Park Real St., Brgy Aslum, Tacloban City, Leyte, Philippines.
             ",
                 0,
                 'J',
@@ -2334,8 +2330,8 @@ $pdf->SetTextColor(0,0,0);
 
             /* LEFT HEADER */
             $pdf->Cell(0,5,'REPUBLIC OF THE PHILIPPINES )',0,1);
-            $pdf->Cell(0,5,'CITY OF BUTUAN           ) SS',0,1);
-            $pdf->Cell(0,5,'PROVINCE OF AGUSAN DEL NORTE         )',0,1);
+            $pdf->Cell(0,5,'CITY OF TACLOBAN           ) SS',0,1);
+            $pdf->Cell(0,5,'PROVINCE OF LEYTE         )',0,1);
 
             $pdf->Ln(3);
 
@@ -2347,7 +2343,7 @@ $pdf->SetTextColor(0,0,0);
 
             /* INTRO */
             $pdf->MultiCell(0,5,"
-            BEFORE ME, personally appeared this _________ in _________, Butuan City, Philippines, the following with their evidence of identity written opposite their name below:
+            BEFORE ME, personally appeared this _________ in _________, Tacloban City, Philippines, the following with their evidence of identity written opposite their name below:
             ");
 
             $pdf->Ln(3);
@@ -2422,10 +2418,10 @@ file_put_contents($pdfPath,$pdfContent);
 
 
 /* =========================
-   FIXED BRANCH (BUTUAN ONLY)
+   FIXED BRANCH (LEYTE ONLY)
 ========================== */
-$branch = 'Butuan';
-$branchRecipient = 'Info.bxu@filproducts.ph';
+$branch = 'Leyte';
+$branchRecipient = 'info.leyte@filproducts.ph';
 
 /* =========================
    DATA
@@ -2462,15 +2458,14 @@ $mail->SMTPOptions = [
 ];
 
 /* FROM */
-$mail->setFrom('noreply@filproducts-cyg.com', 'Fil Products Butuan');
+$mail->setFrom('noreply@filproducts-cyg.com', 'Fil Products Leyte');
 
 /* =========================
    RECIPIENTS (ADMIN ONLY)
 ========================== */
 
 // ✅ Internal recipients (same formatted email)
-$mail->addAddress('Info.bxu@filproducts.ph');
-$mail->addAddress('it.butuan@filproducts.ph');
+$mail->addAddress('info.leyte@filproducts.ph');
 
 // Optional: reply goes to customer
 if (!empty($customerEmail)) {
@@ -2563,7 +2558,7 @@ $mailCustomer->Password = '8kKAahOE*.E,7uJZ';
 $mailCustomer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
 $mailCustomer->Port = 465;
 
-$mailCustomer->setFrom('noreply@filproducts-cyg.com', 'Fil Products Butuan');
+$mailCustomer->setFrom('noreply@filproducts-cyg.com', 'Fil Products Leyte');
 $mailCustomer->addAddress($customerEmail);
 
 $mailCustomer->isHTML(true);
@@ -2574,10 +2569,10 @@ $mailCustomer->Body = "
 <p>Thank you {$fullNameSafe},</p>
 
 <p>Your residential application has been successfully submitted.</p>
-<p>Our Butuan team will review your application and contact you shortly.</p>
+<p>Our Leyte team will review your application and contact you shortly.</p>
 
 <br>
-<p>Fil Products Butuan</p>
+<p>Fil Products Leyte</p>
 ";
 
 $mailCustomer->send();
@@ -2589,9 +2584,9 @@ $mailCustomer->send();
 return redirect()
     ->route('residential.inquiry')
     ->with('success',
-        '✅ Your Residential Application has been successfully submitted.<br>
-        📧 A copy has been sent to your email.<br>
-        Our Butuan team will contact you shortly.'
+        '✅ Your Residential Application has been successfully submitted.
+        📧 A copy has been sent to your email.
+        Our Leyte team will contact you shortly.'
     );
 
 } catch (\Exception $e) {
@@ -2612,17 +2607,17 @@ public function submitResidentialUpgrade(Request $request)
         return back()->with('error','You must agree to the Subscriber Declaration');
     }
 
-        $branch = 'butuan';
+        $branch = 'leyte';
 
         $branches = [
-        'butuan' => [
+        'leyte' => [
             'name' => 'FIL PRODUCTS SERVICE TELEVISION, INC.',
-            'address' => 'N&D Bldg., Alviola Village Baan KM., Butuan City',
-            'contact' => '0917-320-5871 / 0938-320-5871'
+            'address' => 'City Center Park Real St., Brgy Aslum, Tacloban City, Leyte',
+            'contact' => '0995-415-1821'
         ],
     ];
 
-    $branchData = $branches['butuan'];
+    $branchData = $branches['leyte'];
 
     try {
 
@@ -2721,7 +2716,7 @@ $pdf->Cell(216, 7, $branchData['name'], 0, 1, 'C');
 $pdf->SetFont('helvetica','',10);
 $pdf->Cell(0, 5, strtoupper($branchData['address']), 0, 1, 'C');
 $pdf->Cell(0, 5, 'CEL. NOS.: ' . $branchData['contact'], 0, 1, 'C');
-$pdf->Cell(0,5,'Email: Info.bxu@filproducts.ph | Website: www.butuan.filproducts-cyg.com',0,1,'C');
+$pdf->Cell(0,5,'Email: info.leyte@filproducts.ph | Website: www.leyte.filproducts-cyg.com',0,1,'C');
 $pdf->Ln(4);
 
 /* ================= APPLICATION FORM ================= */
@@ -2842,7 +2837,7 @@ $pdf->Cell(120,6,$selectedPlan,0,1);
             plans, products and/or services chosen by me in this application form, as well as the inclusions and special features of such
             plans, products and/or services and that any enrolment I have indicated herein have been knowingly made by me.
 
-            3. I hereby authorize FIL PRODUCTS SERVICE TELEVISION OF BUTUAN, INC. (hereinafter you) or any person or
+            3. I hereby authorize FIL PRODUCTS SERVICE TELEVISION OF LEYTE, INC. (hereinafter you) or any person or
             entity authorized by you, to verify any information about me and/or documents available from whatever source including but
             not limited to (i) your subsidiaries, affiliates, and/or their service providers: or (ii) banks, credit card companies, and other
             lending and/or financial institution, and I hereby authorize the holder, controller and processor of such information and/or
@@ -2994,10 +2989,10 @@ file_put_contents($pdfPath,$pdfContent);
 
 
 /* =========================
-   FIXED BRANCH (BUTUAN ONLY)
+   FIXED BRANCH (LEYTE ONLY)
 ========================== */
-$branch = 'Butuan';
-$branchRecipient = 'Info.bxu@filproducts.ph';
+$branch = 'Leyte';
+$branchRecipient = 'info.leyte@filproducts.ph';
 
 /* =========================
    DATA
@@ -3035,15 +3030,14 @@ $mail->SMTPOptions = [
 ];
 
 /* FROM */
-$mail->setFrom('noreply@filproducts-cyg.com', 'Fil Products Butuan');
+$mail->setFrom('noreply@filproducts-cyg.com', 'Fil Products Leyte');
 
 /* =========================
    RECIPIENTS (ADMIN ONLY)
 ========================== */
 
 // ✅ Internal recipients (same formatted email)
-$mail->addAddress('Info.bxu@filproducts.ph');
-$mail->addAddress('it.butuan@filproducts.ph');
+$mail->addAddress('info.leyte@filproducts.ph');
 
 // Optional: reply goes to customer
 if (!empty($customerEmail)) {
@@ -3121,7 +3115,7 @@ $mailCustomer->Password = '8kKAahOE*.E,7uJZ';
 $mailCustomer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
 $mailCustomer->Port = 465;
 
-$mailCustomer->setFrom('noreply@filproducts-cyg.com', 'Fil Products Butuan');
+$mailCustomer->setFrom('noreply@filproducts-cyg.com', 'Fil Products Leyte');
 $mailCustomer->addAddress($customerEmail);
 
 $mailCustomer->isHTML(true);
@@ -3132,10 +3126,10 @@ $mailCustomer->Body = "
 <p>Thank you {$fullNameSafe},</p>
 
 <p>Your residential upgrade request has been successfully submitted.</p>
-<p>Our Butuan team will review your request and contact you shortly.</p>
+<p>Our Leyte team will review your request and contact you shortly.</p>
 
 <br>
-<p>Fil Products Butuan</p>
+<p>Fil Products Leyte</p>
 ";
 
 $mailCustomer->send();
@@ -3147,9 +3141,9 @@ $mailCustomer->send();
 return redirect()
     ->route('residential.upgrade')
     ->with('success',
-        '✅ Your Residential Upgrade request has been successfully submitted.<br>
-        📧 A copy has been sent to your email.<br>
-        Our Butuan team will contact you shortly.'
+        '✅ Your Residential Upgrade request has been successfully submitted.
+        📧 A copy has been sent to your email.
+        Our Leyte team will contact you shortly.'
     );
 
 } catch (\Exception $e) {

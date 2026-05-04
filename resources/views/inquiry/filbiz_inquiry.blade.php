@@ -28,7 +28,7 @@
 
 <div class="section-title">BUSINESS OR COMPANY INFORMATION</div>
 
-<input type="hidden" name="branch" value="butuan">
+<input type="hidden" name="branch" value="leyte">
 <div class="row row-2">
 
 <div class="form-group">
@@ -414,7 +414,7 @@ plans, products and/or services and that any enrolment I have indicated herein h
             </p>
 
             <p>
-               3. I hereby authorize FIL PRODUCTS SERVICE TELEVISION OF BUTUAN, INC. (hereinafter "you") or any person or
+               3. I hereby authorize FIL PRODUCTS SERVICE TELEVISION OF LEYTE, INC. (hereinafter "you") or any person or
 entity authorized by you, to verify any information about me and/or documents available from whatever source including but
 not limited to (i) your subsidiaries, affiliates, and/or their service providers: or (ii) banks, credit card companies, and other
 lending and/or financial institution, and I hereby authorize the holder, controller and processor of such information and/or
@@ -492,8 +492,8 @@ equipments).
                     of 
                     <span class="line-date" id="contract_month">________</span>, 
                     <span class="line-date" id="contract_year">20__</span>
-                    by and between <strong>FIL PRODUCTS SERVICE TELEVISION OF BUTUAN, INC.</strong>, a corporation 
-                    duly organized and existing under and by virtue of Philippine laws with principal office at N&D Bldg., Alviola Village Baan KM. Butuan City, Philippines, hereinafter referred to as <strong>FPSTI</strong>:
+                    by and between <strong>FIL PRODUCTS SERVICE TELEVISION OF LEYTE, INC.</strong>, a corporation 
+                    duly organized and existing under and by virtue of Philippine laws with principal office at City Center Park Real St., Brgy Aslum, Tacloban City, Leyte, Philippines, hereinafter referred to as <strong>FPSTI</strong>:
                 </p>
                 <br>
                 <p class="center" style="text-align: center;"><strong>AND</strong></p>
@@ -560,7 +560,7 @@ equipments).
 
                         <p><strong>20.</strong> Except by expressed written waiver, any delay, neglect of forbearance of FPSTIto require or enforce any of the provisions of this CONTRACT shall not prejudice the right of FPSTIto exercise or to act strictly afterwards in accordance with the said provisions.</p>
 
-                        <p><strong>21.</strong> Any action arising from this CONTRACT shall be filed in the appropriate Trial Court in Butuan City to the exclusion of any court. The aggrieved party shall be entitled to attorney’s fees and collection expenses equivalent to 25% of the total amount due which in no case shall be less than Php 3,000.00.</p>
+                        <p><strong>21.</strong> Any action arising from this CONTRACT shall be filed in the appropriate Trial Court in Tacloban City to the exclusion of any court. The aggrieved party shall be entitled to attorney’s fees and collection expenses equivalent to 25% of the total amount due which in no case shall be less than Php 3,000.00.</p>
 
                         <p><strong>22.</strong> This contract shall be enforced until terminated by FPSTI or by the SUBSCRIBER upon five-day (5) prior notice in writing with or without cause. All unpaid dues, arrears and monthly subscriptions for the period shall be settled by the latter prior to the effectivity of the termination.</p>
 
@@ -607,14 +607,14 @@ equipments).
 
                     <p>
                     REPUBLIC OF THE PHILIPPINES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )<br>
-                    CITY OF BUTUAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ) SS<br>
-                    PROVINCE OF AGUSAN DEL NORTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )
+                    CITY OF TACLOBAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ) SS<br>
+                    PROVINCE OF LEYTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )
                     </p>
 
                     <p>
                     BEFORE ME, personally appeared this day of 
                     <span class="line-date" id="ack_day">________</span> in 
-                    <span class="line-date" id="ack_place">________</span>, Butuan City, Philippines 
+                    <span class="line-date" id="ack_place">________</span>, Tacloban City, Philippines 
                     the following with their evidence of identity written opposite their name below:
                     </p>
 
@@ -685,8 +685,8 @@ equipments).
                     of 
                     <span class="line-date" id="contract_month">________</span>, 
                     <span class="line-date" id="contract_year">20__</span>
-                    by and between <strong>FIL PRODUCTS SERVICE TELEVISION OF BUTUAN, INC.</strong>, a corporation 
-                    duly organized and existing under and by virtue of Philippine laws with principal office at N&D Bldg., Alviola Village Baan KM. Butuan City, Philippines, hereinafter referred to as <strong>FPSTI</strong>:
+                    by and between <strong>FIL PRODUCTS SERVICE TELEVISION OF LEYTE, INC.</strong>, a corporation 
+                    duly organized and existing under and by virtue of Philippine laws with principal office at City Center Park Real St., Brgy Aslum, Tacloban City, Leyte, Philippines, hereinafter referred to as <strong>FPSTI</strong>:
                 </p>
                 <br>
                 <p class="center" style="text-align: center;"><strong>AND</strong></p>
@@ -753,7 +753,7 @@ equipments).
 
                         <p><strong>20.</strong> Except by expressed written waiver, any delay, neglect of forbearance of FPSTIto require or enforce any of the provisions of this CONTRACT shall not prejudice the right of FPSTIto exercise or to act strictly afterwards in accordance with the said provisions.</p>
 
-                        <p><strong>21.</strong> Any action arising from this CONTRACT shall be filed in the appropriate Trial Court in Butuan City to the exclusion of any court. The aggrieved party shall be entitled to attorney’s fees and collection expenses equivalent to 25% of the total amount due which in no case shall be less than Php 3,000.00.</p>
+                        <p><strong>21.</strong> Any action arising from this CONTRACT shall be filed in the appropriate Trial Court in Tacloban City to the exclusion of any court. The aggrieved party shall be entitled to attorney’s fees and collection expenses equivalent to 25% of the total amount due which in no case shall be less than Php 3,000.00.</p>
 
                         <p><strong>22.</strong> This contract shall be enforced until terminated by FPSTI or by the SUBSCRIBER upon five-day (5) prior notice in writing with or without cause. All unpaid dues, arrears and monthly subscriptions for the period shall be settled by the latter prior to the effectivity of the termination.</p>
 
@@ -800,12 +800,12 @@ equipments).
 
                     <p>
                     REPUBLIC OF THE PHILIPPINES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )<br>
-                    CITY OF BUTUAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ) SS<br>
-                    PROVINCE OF AGUSAN DEL NORTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )
+                    CITY OF TACLOBAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ) SS<br>
+                    PROVINCE OF LEYTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )
                     </p>
 
                     <p>
-                    BEFORE ME, personally appeared this day of______in ___________, Butuan City, Philippines 
+                    BEFORE ME, personally appeared this day of______in ___________, Tacloban City, Philippines 
                     the following with their evidence of identity written opposite their name below:
                     </p>
 

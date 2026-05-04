@@ -21,7 +21,7 @@
 @csrf
 <div class="section-header">Residential Upgrade Form</div>
 <div class="section-title">PERSONAL INFORMATION</div>
-<input type="hidden" name="branch" value="butuan">
+<input type="hidden" name="branch" value="leyte">
 
 <!-- ROW 1 -->
 <div class="row row-3">

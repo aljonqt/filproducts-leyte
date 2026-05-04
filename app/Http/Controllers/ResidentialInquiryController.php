@@ -827,45 +827,67 @@ $mail->addCustomHeader('X-Mailer', 'PHP/' . phpversion());
 
 
 
-/* =========================
-   CONTENT (UPDATED FORMAT)
-========================== */
+/* ============================
+               CONTENT
+            ============================ */
 
-$mail->isHTML(true);
-$mail->CharSet = 'UTF-8';
+            $mail->isHTML(true);
+            $mail->CharSet = 'UTF-8';
 
-$mail->Subject = "Residential Application - {$fullNameSafe}";
+            $mail->Subject = "Residential Application - " . $fullNameSafe;
 
-$mail->Body = "
-<div style='font-family: Arial, sans-serif; font-size:14px; color:#333;'>
-    <h2 style='color:#0275d8;'>Residential Application</h2>
-    <hr>
+            $mail->Body = '
+            <div style="font-family: Arial, sans-serif; background-color: #f9fafb; padding: 20px; line-height: 1.6; color: #333;">
+                <div style="max-width: 600px; margin: 0 auto; background-color: #FFFFFF; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e5e7eb;">
+                    
+                    <div style="background-color: #003366; color: #FFFFFF; padding: 20px; text-align: center;">
+                        <h2 style="margin: 0; font-size: 20px;">Residential Application Received</h2>
+                    </div>
+                    
+                    <div style="padding: 25px;">
+                        <p style="margin-top: 0; color: #4b5563;">
+                            A new residential application has been successfully submitted and recorded in our system.
+                        </p>
+                        
+                        <h4 style="color: #003366; margin-top: 20px; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
+                            Application Details
+                        </h4>
+                        
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px;">
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid #f3f4f6;"><strong>Applicant Name:</strong></td>
+                                <td style="padding: 10px; border-bottom: 1px solid #f3f4f6;"><strong>' . htmlspecialchars($fullNameSafe) . '</strong></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid #f3f4f6;"><strong>Email Address:</strong></td>
+                                <td style="padding: 10px; border-bottom: 1px solid #f3f4f6;">' . htmlspecialchars($customerEmail) . '</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid #f3f4f6;"><strong>Selected Branch:</strong></td>
+                                <td style="padding: 10px; border-bottom: 1px solid #f3f4f6;">' . htmlspecialchars($branchText) . '</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid #f3f4f6;"><strong>Plan Selected:</strong></td>
+                                <td style="padding: 10px; border-bottom: 1px solid #f3f4f6; color:#003366;"><strong>' . htmlspecialchars($planSafe) . '</strong></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px;"><strong>Date Submitted:</strong></td>
+                                <td style="padding: 10px;">' . date('F j, Y h:i A') . '</td>
+                            </tr>
+                        </table>
 
-    <table style='width:100%; border-collapse: collapse;'>
-        <tr>
-            <td><strong>Applicant:</strong></td>
-            <td>{$fullNameSafe}</td>
-        </tr>
-        <tr>
-            <td><strong>Email:</strong></td>
-            <td>{$emailSafe}</td>
-        </tr>
-        <tr>
-            <td><strong>Branch:</strong></td>
-            <td>{$branch}</td>
-        </tr>
-        <tr>
-            <td><strong>Plan:</strong></td>
-            <td>{$planSafe}</td>
-        </tr>
-    </table>
+                        <div style="background-color: #f3f4f6; padding: 15px; border-left: 4px solid #003366;">
+                            <strong>Note:</strong> Attached is your application PDF.
+                        </div>
+                    </div>
 
-    <br>
-    <p style='font-size:12px;color:#555;'>
-        This application was submitted via Fil Products System.
-    </p>
-</div>
-";
+                    <div style="background-color: #f9fafb; padding: 15px; text-align: center; font-size: 12px; color: #9ca3af;">
+                        System Generated Email • Fil Products System
+                    </div>
+                    
+                </div>
+            </div>
+            ';
 
 /* =========================
    ATTACHMENTS

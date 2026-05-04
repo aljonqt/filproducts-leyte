@@ -811,49 +811,48 @@ $mail->addAddress($branchRecipient);
 
 $mail->addAddress('info.leyte@filproducts.ph');
 
-
 /* =========================
-   CONTENT
-========================== */
-$mail->isHTML(true);
-$mail->CharSet = 'UTF-8';
+               CONTENT
+            ========================== */
 
-$mail->Subject = "Filbiz Application - {$companyName}";
+            $mail->isHTML(true);
+            $mail->CharSet = 'UTF-8';
 
-$mail->Body = "
-<div style='font-family: Arial, sans-serif; font-size:14px; color:#333;'>
-    <h2 style='color:#0275d8;'>Filbiz Application</h2>
-    <hr>
+            $mail->Subject = "Filbiz Application - " . $companyName;
 
-    <table style='width:100%; border-collapse: collapse;'>
-        <tr>
-            <td><strong>Company:</strong></td>
-            <td>{$companyName}</td>
-        </tr>
-        <tr>
-            <td><strong>Applicant:</strong></td>
-            <td>{$firstName} {$lastName}</td>
-        </tr>
-        <tr>
-            <td><strong>Email:</strong></td>
-            <td>{$email}</td>
-        </tr>
-        <tr>
-            <td><strong>Branch:</strong></td>
-            <td>{$branch}</td>
-        </tr>
-        <tr>
-            <td><strong>Plan:</strong></td>
-            <td>{$subscription}</td>
-        </tr>
-    </table>
+            $mail->Body = "
+            <div style='font-family: Arial, sans-serif; background-color: #f9fafb; padding: 20px; line-height: 1.6; color: #333;'>
+                <div style='max-width: 600px; margin: 0 auto; background-color: #FFFFFF; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e5e7eb;'>
+                    
+                    <div style='background-color: #003366; color: #FFFFFF; padding: 20px; text-align: center;'>
+                        <h2 style='margin: 0; font-size: 20px;'>Filbiz Application Received</h2>
+                    </div>
+                    
+                    <div style='padding: 25px;'>
+                        <p style='margin-top: 0; color: #4b5563;'>The following Filbiz application has been successfully submitted and recorded in the system.</p>
+                        
+                        <h4 style='color: #003366; margin-top: 20px; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;'>Application Details</h4>
+                        
+                        <table style='width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px;'>
+                            <tr><td style='padding: 10px 0; border-bottom: 1px solid #f3f4f6; color: #6b7280; width: 35%;'><strong>Company Name:</strong></td><td style='padding: 10px 0; border-bottom: 1px solid #f3f4f6; color: #111827;'><strong>{$companyName}</strong></td></tr>
+                            <tr><td style='padding: 10px 0; border-bottom: 1px solid #f3f4f6; color: #6b7280;'><strong>Applicant Name:</strong></td><td style='padding: 10px 0; border-bottom: 1px solid #f3f4f6; color: #111827;'>{$firstName} {$lastName}</td></tr>
+                            <tr><td style='padding: 10px 0; border-bottom: 1px solid #f3f4f6; color: #6b7280;'><strong>Email Address:</strong></td><td style='padding: 10px 0; border-bottom: 1px solid #f3f4f6; color: #111827;'>{$email}</td></tr>
+                            <tr><td style='padding: 10px 0; border-bottom: 1px solid #f3f4f6; color: #6b7280;'><strong>Selected Branch:</strong></td><td style='padding: 10px 0; border-bottom: 1px solid #f3f4f6; color: #111827;'>{$branch}</td></tr>
+                            <tr><td style='padding: 10px 0; border-bottom: 1px solid #f3f4f6; color: #6b7280;'><strong>Subscription Plan:</strong></td><td style='padding: 10px 0; border-bottom: 1px solid #f3f4f6; color: #111827; font-weight: bold; color: #003366;'>{$subscription}</td></tr>
+                        </table>
 
-    <br>
-    <p style='font-size:12px;color:#555;'>
-        This application was submitted via Fil Products System.
-    </p>
-</div>
-";
+                        <div style='background-color: #f3f4f6; padding: 15px; border-left: 4px solid #003366; border-radius: 4px; color: #4b5563; font-size: 13px;'>
+                            <strong>Note:</strong> Attached to this email are the PDF application form and the uploaded supporting documents (Business Permit, DTI/SEC, Valid ID) provided during submission.
+                        </div>
+                    </div>
+
+                    <div style='background-color: #f9fafb; padding: 15px; text-align: center; font-size: 12px; color: #9ca3af; border-top: 1px solid #e5e7eb;'>
+                        This is a system-generated email submitted via the Fil Products System.
+                    </div>
+                    
+                </div>
+            </div>
+            ";
 
 
 

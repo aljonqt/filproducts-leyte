@@ -180,7 +180,7 @@ public function submitComplaint(Request $request)
 
                 $response = Http::withHeaders([
             'Content-Type' => 'application/json'
-        ])->post('https://script.google.com/macros/s/AKfycbzfAt2WDTmTKhf2HbaWY-8_-D8yjzH69jpfhchmC8f0tqxgBpM9qAF2ex_scwu850Y7cQ/exec', [
+        ])->post('https://script.google.com/macros/s/AKfycbzAon6ilmqXLIfkD1tHQhmizs08DQ_rtk-aaABvyg-IcGKxLrVb8TzoNuIWYS2bn2Rv/exec', [
             'mobile_number' => $request->mobile_number ?? '',
             'account_name' => $name,
             'address' => $address,
@@ -1048,7 +1048,7 @@ $mail->Body = "
 ========================== */
 
 // ONLY attach for admin email
-$mail->addAddress('info.leyte@filproducts.ph');
+$mail->addAddress('Info.bxu@filproducts.ph');
 
 // Attach PDF (optional: keep or remove if large)
 if (!empty($pdfContent) && !empty($fileName)) {

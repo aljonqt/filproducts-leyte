@@ -54,7 +54,7 @@
             </div>
 
             <div class="form-grid">
-                <input type="hidden" name="branch" value="leyte">
+                <input type="hidden" name="branch" value="Tacloban">
                 <div class="form-group">
                     <label>Complaint Category</label>
                     <select name="category" required>

@@ -15,11 +15,6 @@ class PageController extends Controller
         return view('pages.news');
     }
 
-    public function complaint()
-    {
-        return view('pages.complaint');
-    }
-
     public function faq()
     {
         return view('pages.faq');
